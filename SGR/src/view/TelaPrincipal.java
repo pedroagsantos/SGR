@@ -1,20 +1,14 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import model.Departamento;
-import javax.swing.JToolBar;
-import net.miginfocom.swing.MigLayout;
-import java.awt.Component;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JMenu;
+
+import net.miginfocom.swing.MigLayout;
 
 public class TelaPrincipal extends JFrame{
 	private ViewProfessor viewProfessor;

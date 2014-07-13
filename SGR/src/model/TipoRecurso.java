@@ -1,14 +1,10 @@
 package model;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by stark on 06/06/14.
- */
 public class TipoRecurso {
 
-    private HashMap<String, Recurso> hmRecurso = new HashMap<>();
+    private List<Recurso> recursos = new ArrayList<>();
     private int status;
     private String tipo;
     
@@ -32,23 +28,19 @@ public class TipoRecurso {
 
     public void inserir(Recurso recurso){
 
-        hmRecurso.put(recurso.recuperarPatrimonio(), recurso);
+        recursos.add(recurso);
 
     }
 
     public void alterar(Recurso recurso){
 
-        hmRecurso.put(recurso.recuperarPatrimonio(), recurso);
+        recursos.add(recurso);
 
     }
 
-    public List<Recurso> listar(){
+    public List<Recurso> listarRecursos(){
 
-        ArrayList<Recurso> listaRetorno = new ArrayList<Recurso>();
-
-        listaRetorno.addAll(hmRecurso.values());
-
-        return listaRetorno;
+        return recursos;
     }
 
     public void remover(Recurso recurso){

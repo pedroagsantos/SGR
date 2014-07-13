@@ -4,12 +4,9 @@ package model;
  * Created by stark on 06/06/14.
  */
 public class Professor extends Usuario{
-
-    //private HashMap<String, Atividade> hmAtividade;
-    private Integer departamento;
 	
 	
-	public Professor(String nome, String siape, String email, String telefone, Integer depto) {
+	public Professor(String nome, String siape, String email, String telefone, Departamento depto) {
 		// TODO Auto-generated constructor stub
 		this.nome = nome;
 		this.siape = siape;
@@ -25,11 +22,11 @@ public class Professor extends Usuario{
 		return nome;
 	}
 	
-	public Integer recuperarDepartamento() {
+	public Departamento recuperarDepartamento() {
 		return departamento;
 	}
 	
-	public void modificarDepartamento(Integer depto) {
+	public void modificarDepartamento(Departamento depto) {
 		this.departamento = depto;
 	}
 	

@@ -1,4 +1,6 @@
 package model;
+
+
 /**
  * Created by stark on 06/06/14.
  */
@@ -11,6 +13,8 @@ public class Usuario {
     protected String email;
     protected int status;
     protected String telefone;
+    private static Usuario usrLogado;
+    protected Departamento departamento;
 
     public String recuperarNome() {
         return nome;
@@ -51,4 +55,30 @@ public class Usuario {
 	public void modificarTelefone(String tel) {
         this.telefone = tel;
     }
+	
+	public String recuperaSenha(){
+		return this.senha;
+	}
+	
+	public void insereSenha(String senha){
+		this.senha = senha;
+	}
+	public static Usuario consultaUsuario(String usuario, String senha){
+		Usuario procurado = null;
+		for(Departamento dpto: Universidade.recuperaInstancia().recuperaDepartamentos()){
+			for (Usuario usr : dpto.l) {
+				
+			}
+		}
+		return procurado;
+	}
+	
+	public static Usuario recuperatUsuarioLogado(){
+		return usrLogado;
+	}
+	
+	public static void setUsuarioLogado (Usuario logado){
+		usrLogado = logado;
+	}	
+	
 }

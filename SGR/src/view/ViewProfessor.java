@@ -1,33 +1,26 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import model.Professor;
-import model.Universidade;
-import net.miginfocom.swing.MigLayout;
-
-import javax.swing.DefaultBoundedRangeModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
-
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-
-import control.ControleInstitucional;
-
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import model.Departamento;
+import model.Professor;
+import model.Universidade;
+import net.miginfocom.swing.MigLayout;
+import control.ControleInstitucional;
 
 public class ViewProfessor {
 
@@ -39,7 +32,7 @@ public class ViewProfessor {
 	private JTextField telefone;
 	private JTextField siapeBusca;
 	private JTable tabela;
-	private JComboBox departamento;
+	private JComboBox<Departamento> departamento;
 	private JPanel panel;
 	
 	private ControleInstitucional controleInstitucional;
@@ -122,10 +115,10 @@ public class ViewProfessor {
 		panel.add(lblDepartamento, "cell 0 4,alignx trailing");
 		
 		
-		Object[] vetorDepartamento;
-		vetorDepartamento = Main.ufrrj.recuperaMapaDepartamento().values().toArray();
-		departamento = new JComboBox();
-		departamento.setModel(new DefaultComboBoxModel(vetorDepartamento));
+		Departamento[] vetorDepartamento;
+		vetorDepartamento = (Departamento[]) Universidade.recuperaInstancia().recuperaDepartamentos().toArray();
+		departamento = new JComboBox<Departamento>();
+		departamento.setModel(new DefaultComboBoxModel<Departamento>(vetorDepartamento));
 		departamento.setEditable(true);
 		panel.add(departamento, "cell 1 4,growx");
 		
@@ -133,7 +126,7 @@ public class ViewProfessor {
 		ActionListener salvarProfessor = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				professor = new Professor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), departamento.getSelectedIndex());
+				professor = new Professor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento) departamento.getSelectedItem());
 				controleInstitucional.inserir(professor);
 				
 			}
@@ -171,7 +164,7 @@ public class ViewProfessor {
 				//professor.modificarSiape(siape.getText());
 				professor.modificarEmail(email.getText());
 				professor.modificarTelefone(telefone.getText());
-				professor.modificarDepartamento(departamento.getSelectedIndex());
+				professor.modificarDepartamento((Departamento)departamento.getSelectedItem());
 				controleInstitucional.alterar(professor);
 				
 			}
@@ -184,7 +177,7 @@ public class ViewProfessor {
 				siape.setText(professor.recuperarSiape());
 				email.setText(professor.recuperarEmail());
 				telefone.setText(professor.recuperarTelefone());
-				departamento.setSelectedIndex(professor.recuperarDepartamento());
+				departamento.setSelectedItem(professor.recuperarDepartamento());
 				
 				tabbedPane.setSelectedComponent(panel);
 				

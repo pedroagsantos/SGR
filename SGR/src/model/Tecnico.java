@@ -1,15 +1,12 @@
 package model;
-import java.util.HashMap;
 
 /**
  * Created by stark on 06/06/14.
  */
 public class Tecnico extends Usuario {
 
-    //private HashMap<String, Atividade> hmAtividade;
-    private Integer departamento;
     
-    public Tecnico(String nome, String siape, String email, String telefone, Integer depto) {
+    public Tecnico(String nome, String siape, String email, String telefone, Departamento depto) {
 		// TODO Auto-generated constructor stub
 		this.nome = nome;
 		this.siape = siape;
@@ -25,12 +22,12 @@ public class Tecnico extends Usuario {
     	return nome;
     }
 
-	public void modificarDepartamento(int depto) {
+	public void modificarDepartamento(Departamento depto) {
 		this.departamento = depto;
 		
 	}
 
-	public Integer recuperarDepartamento() {
+	public Departamento recuperarDepartamento() {
 		return departamento;
 	}
 }

@@ -1,131 +1,80 @@
 package model;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by stark on 06/06/14.
- */
 public class Departamento {
 	
 	
 	private String nome;
 	private String codDepto;
 
-    private HashMap<String, Atividade> hmAtividade = new HashMap<>();
-    private HashMap<String, TipoRecurso> hmTipoRecurso = new HashMap<>();
-    private HashMap<String, Professor> hmProfessor = new HashMap<>();
-    private HashMap<String, Tecnico> hmTecnico = new HashMap<>();
+    private List<Atividade> atividades = new ArrayList<Atividade>();
+    private List<TipoRecurso> tipoRecursos = new ArrayList<TipoRecurso>();
+    private List<Usuario> usuarios = new ArrayList<Usuario>();
+
     
     public Departamento(String codDepto, String nome ) {
-		// TODO Auto-generated constructor stub
     	this.codDepto = codDepto;
     	this.nome = nome;
 	}
     
     
-
-    public void inserirProfessor(Professor professor) {
-    	
-    	hmProfessor.put(professor.recuperarSiape(), professor);
-    }
-    
-    public void inserirTecnico(Tecnico tecnico) {
-    	
-    	hmTecnico.put(tecnico.recuperarSiape(), tecnico);
-    }
-    
-    public void inserirTipoRecurso(TipoRecurso tipoRecurso) {
-    	hmTipoRecurso.put(tipoRecurso.recuperarTipo(), tipoRecurso);
-    }
-    
-    public void inserirAtividade(Atividade atividade) {
-    	hmAtividade.put(atividade.recuperarCodigo(), atividade);
-    }
-    
     public void inserir(Object object){
 
-        if (object.getClass().isInstance(Tecnico.class)) {
+        if (object instanceof Tecnico || object instanceof Professor) {
 
-            Tecnico tecnico = (Tecnico) object;
+            Usuario usuario = (Usuario) object;
 
-            hmTecnico.put(tecnico.recuperarSiape(), tecnico);
+            usuarios.add(usuario);
         }
 
-        else if (object.getClass().isInstance(Professor.class)) {
 
-            Professor professor = (Professor) object;
-
-            hmProfessor.put(professor.recuperarSiape(), professor);
-
-        }
-
-        else if (object.getClass().isInstance(TipoRecurso.class)) {
+        else if (object instanceof TipoRecurso) {
 
             TipoRecurso tipoRecurso = (TipoRecurso) object;
 
-            hmTipoRecurso.put(tipoRecurso.recuperarTipo(), tipoRecurso);
+            tipoRecursos.add(tipoRecurso);
 
         }
 
-        else if (object.getClass().isInstance(TipoRecurso.class)) {
+        else if (object instanceof TipoRecurso) {
 
             Atividade atividade = (Atividade) object;
 
-            hmAtividade.put(atividade.recuperarCodigo(), atividade);
+            atividades.add(atividade);
 
         }
-
-       /* if (object.getClass().isInstance(Departamento.class)) {
-
-            Departamento departamento = (Departamento) object;
-
-            hmDepartamento.put(departamento.getIdDepto(), departamento);
-
-        }*/
+                
+        else{
+        	throw new RuntimeException("Tipo nao Esperado");
+        }
 
     }
 
     public void alterar(Object object){
+    	
+        if (object instanceof Tecnico || object instanceof Professor){
 
-        if (object.getClass().isInstance(Tecnico.class)){
+            Usuario usuario = (Usuario) object;
 
-            Tecnico tecnico = (Tecnico) object;
-
-            hmTecnico.put(tecnico.recuperarSiape(), tecnico);
+            usuarios.add(usuario);
         }
 
-        else if (object.getClass().isInstance(Professor.class)){
-
-            Professor professor = (Professor) object;
-
-            hmProfessor.put(professor.recuperarSiape(), professor);
-
-        }
-
-        else if(object.getClass().isInstance(TipoRecurso.class)){
+        else if(object instanceof TipoRecurso){
 
             TipoRecurso tipoRecurso = (TipoRecurso) object;
 
-            hmTipoRecurso.put(tipoRecurso.recuperarTipo(), tipoRecurso);
+            tipoRecursos.add(tipoRecurso);
 
         }
 
-        else if (object.getClass().isInstance(TipoRecurso.class)) {
+        else if (object instanceof TipoRecurso){
 
             Atividade atividade = (Atividade) object;
 
-            hmAtividade.put(atividade.recuperarCodigo(), atividade);
+            atividades.add(atividade);
 
         }
-
-       /* if (object.getClass().isInstance(Departamento.class)) {
-
-            Departamento departamento = (Departamento) object;
-
-            hmDepartamento.put(departamento.getIdDepto(), departamento);
-
-        }*/
 
     }
 
@@ -133,32 +82,28 @@ public class Departamento {
 
         ArrayList<Object> listaRetorno = new ArrayList<Object>();
 
-        if(object.getClass().isInstance(Tecnico.class)){
-
-            listaRetorno.addAll(hmTecnico.values());
+        if(object instanceof Tecnico){
+        if(((Tecnico)object).recuperarSiape().isEmpty() || ((Tecnico)object).recuperarSiape() == null)
+				listaRetorno.addAll(usuarios);
+        else{
+        	for (Usuario usuario : usuarios) {
+				if(usuario instanceof Tecnico){
+					if(usuario.recuperarSiape().indexOf(((Tecnico) object).recuperarSiape()) > -1)
+						listaRetorno.add(usuario);
+					}
+				}
+        	}
         }
 
-        else if(object.getClass().isInstance(Professor.class)){
+        else if(object instanceof TipoRecurso){
 
-            listaRetorno.addAll(hmProfessor.values());
+            listaRetorno.addAll(tipoRecursos);
         }
 
-        else if(object.getClass().isInstance(TipoRecurso.class)){
+        else if(object instanceof Atividade){
 
-            listaRetorno.addAll(hmTipoRecurso.values());
+            listaRetorno.addAll(atividades);
         }
-
-        else if(object.getClass().isInstance(Atividade.class)){
-
-            listaRetorno.addAll(hmAtividade.values());
-        }
-
-         /*if(object.getClass().isInstance(Departamento.class)){
-
-            for (Departamento departamento : hmDepartamento.values()) {
-                listaRetorno.add(departamento);
-            }
-        }*/
 
         return listaRetorno;
     }
@@ -166,21 +111,14 @@ public class Departamento {
     public void remover(Object object){
 
 
-        if (object.getClass().isInstance(Tecnico.class)) {
+        if (object instanceof Tecnico || object instanceof Professor){
 
-            Tecnico tecnico = (Tecnico) object;
+            Usuario usuario = (Usuario) object;
 
-            tecnico.modificarStatus(Status.DESABILITADO.valor());
+            usuario.modificarStatus(Status.DESABILITADO.valor());
         }
 
-        else if (object.getClass().isInstance(Professor.class)) {
-
-            Professor professor = (Professor) object;
-
-            professor.modificarStatus(Status.DESABILITADO.valor());
-        }
-
-        else if (object.getClass().isInstance(TipoRecurso.class)) {
+        else if (object instanceof TipoRecurso){
 
             TipoRecurso tipoRecurso = (TipoRecurso) object;
 
@@ -188,21 +126,6 @@ public class Departamento {
 
         }
 
-        else if (object.getClass().isInstance(TipoRecurso.class)) {
-
-            Atividade atividade = (Atividade) object;
-
-            atividade.modificarStatus(Status.DESABILITADO.valor());
-
-        }
-
-         /* else if (object.getClass().isInstance(Departamento.class)) {
-
-            Departamento departamento = (Departamento) object;
-
-            //hmDepartamento.remove(departamento);
-
-        }*/
     }
 
     
@@ -212,42 +135,13 @@ public class Departamento {
     	return nome;
     }
     
+    public String recuperaNome(){
+    	return nome;
+    }
+    
     public String recuperarCodigo() {
     	return codDepto;
     }
-
-
-
-	public HashMap<String, Professor> retornaMapaProfessor() {
-		return hmProfessor;
-	}
-
-	public void modificaMapaProfessor(HashMap<String, Professor> hmProfessor) {
-		this.hmProfessor = hmProfessor;
-	}
-
-	public HashMap<String, TipoRecurso> retornaMapaTipoRecurso() {
-		return hmTipoRecurso;
-	}
-
-
-
-	public void setHmTipoRecurso(HashMap<String, TipoRecurso> modificaMapaTipoRecurso) {
-		this.hmTipoRecurso = hmTipoRecurso;
-	}
-
-	public HashMap<String, Tecnico> retornaMapaTecnico() {
-		return hmTecnico;
-	}
-
-	public void modificaMapaTecnico(HashMap<String, Tecnico> hmTecnico) {
-		this.hmTecnico = hmTecnico;
-	}
-
-
-
-	
-    
     
 }
 

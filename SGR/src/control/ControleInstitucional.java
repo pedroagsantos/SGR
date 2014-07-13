@@ -1,10 +1,7 @@
 package control;
 
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.JTable;
 
 import model.Departamento;
 import model.Professor;
@@ -12,13 +9,6 @@ import model.Tecnico;
 import model.TipoRecurso;
 
 public class ControleInstitucional {
-	
-	public static Departamento depto = new Departamento("1", "DT");
-
-	private static ArrayList<Professor> listaProfessor = new ArrayList<>();
-	private static ArrayList<Tecnico> listaTecnico = new ArrayList<>();
-	private static ArrayList<Departamento> listaDepartamentos = new ArrayList<>();
-	private static ArrayList<TipoRecurso> listaTipoRecurso = new ArrayList<>();
 
 	public void inserir(Professor professor) {
 
