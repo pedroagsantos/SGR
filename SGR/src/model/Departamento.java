@@ -19,95 +19,78 @@ public class Departamento {
 	}
     
     
-    public void inserir(Object object){
-
-        if (object instanceof Tecnico || object instanceof Professor) {
-
-            Usuario usuario = (Usuario) object;
-
-            usuarios.add(usuario);
-        }
-
-
-        else if (object instanceof TipoRecurso) {
-
-            TipoRecurso tipoRecurso = (TipoRecurso) object;
-
-            tipoRecursos.add(tipoRecurso);
-
-        }
-
-        else if (object instanceof TipoRecurso) {
-
-            Atividade atividade = (Atividade) object;
-
-            atividades.add(atividade);
-
-        }
-                
-        else{
-        	throw new RuntimeException("Tipo nao Esperado");
-        }
-
-    }
-
-    public void alterar(Object object){
+    public void inserirTecnico(Tecnico tecnico){
     	
-        if (object instanceof Tecnico || object instanceof Professor){
-
-            Usuario usuario = (Usuario) object;
-
-            usuarios.add(usuario);
-        }
-
-        else if(object instanceof TipoRecurso){
-
-            TipoRecurso tipoRecurso = (TipoRecurso) object;
-
-            tipoRecursos.add(tipoRecurso);
-
-        }
-
-        else if (object instanceof TipoRecurso){
-
-            Atividade atividade = (Atividade) object;
-
-            atividades.add(atividade);
-
-        }
+    	this.usuarios.add(tecnico);
 
     }
+    
+    public void inserirProfessor(Professor professor){
+    	
+    	this.usuarios.add(professor);
+    }
 
-    public List<Object> listar(Object object){
+    public void alterarTecnico(Tecnico tecnico){
 
-        ArrayList<Object> listaRetorno = new ArrayList<Object>();
+            this.usuarios.add(tecnico);
+    }
+   
+    public List<Usuario> listar(){
+    	
+    	return this.usuarios;
+    }
+    
 
-        if(object instanceof Tecnico){
-        if(((Tecnico)object).recuperarSiape().isEmpty() || ((Tecnico)object).recuperarSiape() == null)
-				listaRetorno.addAll(usuarios);
-        else{
-        	for (Usuario usuario : usuarios) {
-				if(usuario instanceof Tecnico){
-					if(usuario.recuperarSiape().indexOf(((Tecnico) object).recuperarSiape()) > -1)
+    public void alterarProfessor(Professor professor){
+
+    	this.usuarios.add(professor);
+    }
+
+    public List<Usuario> listarTecnico(Tecnico tecnico){
+
+        ArrayList<Usuario> listaRetorno = new ArrayList<Usuario>();
+			if (tecnico.recuperarSiape().isEmpty()
+					|| tecnico.recuperarSiape() == null){
+				for (Usuario usuario : this.usuarios) {
+					if(usuario instanceof Tecnico)
 						listaRetorno.add(usuario);
+				}
+			}
+			else {
+				for (Usuario usuarios : this.usuarios) {
+					if (usuarios instanceof Tecnico) {
+						if (usuarios.recuperarSiape().indexOf(
+								((Tecnico) usuarios).recuperarSiape()) > -1)
+							listaRetorno.add(usuarios);
 					}
 				}
-        	}
-        }
-
-        else if(object instanceof TipoRecurso){
-
-            listaRetorno.addAll(tipoRecursos);
-        }
-
-        else if(object instanceof Atividade){
-
-            listaRetorno.addAll(atividades);
-        }
-
+			}
+			
         return listaRetorno;
     }
 
+    public List<Usuario> listarProfessor(Professor professor){
+
+        ArrayList<Usuario> listaRetorno = new ArrayList<Usuario>();
+			if (professor.recuperarSiape().isEmpty()
+					|| professor.recuperarSiape() == null){
+				for (Usuario usuario : this.usuarios) {
+					if(usuario instanceof Tecnico)
+						listaRetorno.add(usuario);
+				}
+			}
+			else {
+				for (Usuario usuario : this.usuarios) {
+					if (usuario instanceof Professor) {
+						if (professor.recuperarSiape().indexOf(usuario.recuperarSiape()) > -1)
+							listaRetorno.add(usuario);
+					}
+				}
+			}
+
+        return listaRetorno;
+    }
+    
     public void remover(Object object){
 
 
@@ -127,7 +110,46 @@ public class Departamento {
         }
 
     }
+ 
+    public void inserirTipoRecurso(TipoRecurso tipoRecurso){
+    	
+    	tipoRecursos.add(tipoRecurso);
+    }
+    
+    public void alteraTipoRecurso(TipoRecurso tipoRecurso){
 
+        this.tipoRecursos.add(tipoRecurso);
+    }
+    
+    public List<TipoRecurso> listarTipoRecurso(TipoRecurso tipoRecurso){
+
+        ArrayList<TipoRecurso> listaRetorno = new ArrayList<TipoRecurso>();
+
+		if (tipoRecurso instanceof TipoRecurso) {
+			if (((TipoRecurso) tipoRecurso).recuperarTipo() == null)
+				listaRetorno.addAll(this.tipoRecursos);
+			else {
+				for (TipoRecurso tipoRecursos : this.tipoRecursos) {
+					if (tipoRecursos instanceof TipoRecurso) {
+						if (tipoRecursos.recuperarTipo().indexOf(
+								((TipoRecurso) tipoRecursos).recuperarTipo()) > -1)
+							listaRetorno.add(tipoRecursos);
+					}
+				}
+			}
+		}
+
+        return listaRetorno;
+    }
+   
+    public void inserirAtividade(Atividade atividade){
+    	
+    	atividades.add(atividade);
+    	
+    }
+    
+    ///Terminar a implementação
+    //public void inserirRecurso(Recurso re)
     
     @Override
     public String toString() {
@@ -142,6 +164,8 @@ public class Departamento {
     public String recuperarCodigo() {
     	return codDepto;
     }
+    
+    
     
 }
 

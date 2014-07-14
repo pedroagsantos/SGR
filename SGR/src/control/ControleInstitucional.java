@@ -7,9 +7,12 @@ import model.Departamento;
 import model.Professor;
 import model.Tecnico;
 import model.TipoRecurso;
+import model.Usuario;
 
 public class ControleInstitucional {
 
+	private Departamento depto = Usuario.recuperatUsuarioLogado().recuperarDepartamento();
+	
 	public void inserir(Professor professor) {
 
 		/*if (buscarProfessor(professor.recuperarSiape()) != null) {

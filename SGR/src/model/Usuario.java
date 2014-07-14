@@ -4,7 +4,7 @@ package model;
 /**
  * Created by stark on 06/06/14.
  */
-public class Usuario {
+public abstract class Usuario {
 
     protected String nome;
     protected String siape;
@@ -63,15 +63,6 @@ public class Usuario {
 	public void insereSenha(String senha){
 		this.senha = senha;
 	}
-	public static Usuario consultaUsuario(String usuario, String senha){
-		Usuario procurado = null;
-		for(Departamento dpto: Universidade.recuperaInstancia().recuperaDepartamentos()){
-			for (Usuario usr : dpto.l) {
-				
-			}
-		}
-		return procurado;
-	}
 	
 	public static Usuario recuperatUsuarioLogado(){
 		return usrLogado;
@@ -80,5 +71,14 @@ public class Usuario {
 	public static void setUsuarioLogado (Usuario logado){
 		usrLogado = logado;
 	}	
+	
+	public void modificarDepartamento(Departamento depto) {
+		this.departamento = depto;
+		
+	}
+
+	public Departamento recuperarDepartamento() {
+		return departamento;
+	}
 	
 }

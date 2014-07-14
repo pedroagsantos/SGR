@@ -14,6 +14,6 @@ public class ControleAtividade {
 	}
 	
 	public List<TipoRecurso> recuperaTipoRecurso(){
-		ControleInstitucional.depto.retornaMapaTipoRecurso()
+		ControleInstitucional.depto.retornaMapaTipoRecurso();
 	}
 }

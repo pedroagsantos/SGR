@@ -47,7 +47,6 @@ public class TipoRecurso {
 
             recurso.modificarStatusRecurso(Status.DESABILITADO.valor());
     }
-
     
     @Override
     public String toString() {
