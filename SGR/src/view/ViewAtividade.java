@@ -116,7 +116,8 @@ public class ViewAtividade {
 		for(int i = 0; i < recursoArray.length; i++){
 			recursoArray[i] = (Recurso) tipoRec.listarRecursos().toArray()[i];
 		}
-		recursoJlist = new JList<Recurso>(recursoArray);
+		recursoJlist = new JList<Recurso>();
+		recursoJlist.setListData(recursoArray);
 		frame.getContentPane().add(recursoJlist, "cell 1 3,growx");
 		
 		JLabel lblIntervalo = new JLabel("Intervalo:");

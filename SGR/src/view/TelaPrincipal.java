@@ -94,9 +94,6 @@ public class TelaPrincipal extends JFrame{
 		mnGerenciarAtividades = new JMenu("Gerenciar atividades");
 		menuBar.add(mnGerenciarAtividades);
 		
-		mntmBuscarAtividade = new JMenuItem("Buscar Solicita\u00E7\u00E3o");
-		mnSolicitao.add(mntmBuscarAtividade);
-		
 		
 	}
 	
