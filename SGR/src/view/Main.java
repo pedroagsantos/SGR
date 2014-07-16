@@ -8,7 +8,6 @@ import model.Recurso;
 import model.Tecnico;
 import model.TipoRecurso;
 import model.Universidade;
-import model.Usuario;
 
 public class Main {
 	
@@ -25,8 +24,8 @@ public class Main {
 					Universidade.recuperaInstancia().inserirDepartamento(dat);
 					Universidade.recuperaInstancia().inserirDepartamento(dtl);
 					
-					Usuario tecnico1 = new Tecnico("Tecnico01", "2", "01@tecnico.com", "2121-2121", dtl);
-					Usuario prof1 = new Professor("Professor01", "1", "01@professor.com", "2222-2222", dtl);
+					Tecnico tecnico1 = new Tecnico("Tecnico01", "2", "01@tecnico.com", "2121-2121", dtl);
+					Professor prof1 = new Professor("Professor01", "1", "01@professor.com", "2222-2222", dtl);
 					tecnico1.insereSenha("foca");
 					prof1.insereSenha("foca");
 					TipoRecurso tp1 = new TipoRecurso("Projetor");
@@ -40,13 +39,13 @@ public class Main {
 					tp1.inserir(recurso2);
 					tp2.inserir(recurso3);
 					
-					dtl.inserir(prof1);
-					dtl.inserir(tecnico1);
-					dtl.inserir(tp1);
-					dtl.inserir(tp2);
+					dtl.inserirProfessor(prof1);
+					dtl.inserirTecnico(tecnico1);
+					dtl.inserirTipoRecurso(tp1);
+					dtl.inserirTipoRecurso(tp2);
 					
 					
-					window.setVisible(true);
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

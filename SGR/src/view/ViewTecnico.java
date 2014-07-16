@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -16,8 +17,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import model.Professor;
+import model.Departamento;
 import model.Tecnico;
+import model.Universidade;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import control.ControleInstitucional;
 
@@ -31,7 +34,7 @@ public class ViewTecnico {
 	private JTextField telefone;
 	private JTextField siapeBusca;
 	private JTable tabela;
-	private JComboBox departamento;
+	private JComboBox<Departamento> departamento;
 	private JPanel panel;
 	
 	private ControleInstitucional controleInstitucional;
@@ -114,24 +117,30 @@ public class ViewTecnico {
 		panel.add(lblDepartamento, "cell 0 4,alignx trailing");
 		
 		
-		Object[] vetorDepartamento;
-		vetorDepartamento = Main.ufrrj.recuperaMapaDepartamento().values().toArray();
-		departamento = new JComboBox();
-		departamento.setModel(new DefaultComboBoxModel(vetorDepartamento));
+		Departamento[] vetorDepartamento = new Departamento[Universidade.recuperaInstancia().recuperaDepartamentos().toArray().length];
+		int cont = 0;
+		for(Object depto : Universidade.recuperaInstancia().recuperaDepartamentos().toArray()){
+			Departamento departamento = (Departamento) depto;
+			vetorDepartamento[cont] = departamento;
+			cont++;
+		}
+		
+		
+		departamento = new JComboBox<Departamento>();
+		departamento.setModel(new DefaultComboBoxModel<Departamento>(vetorDepartamento));
 		departamento.setEditable(true);
 		panel.add(departamento, "cell 1 4,growx");
 		
 		/*****************************************************************/
-		ActionListener salvarProfessor = new ActionListener() {
+		ActionListener salvarTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				tecnico = new Tecnico(nome.getText(), siape.getText(), email.getText(), telefone.getText(), departamento.getSelectedIndex());
-				controleInstitucional.inserir(tecnico);
+				controleInstitucional.inserirTecnico(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento)departamento.getSelectedItem());
 				
 			}
 		};
 		
-		ActionListener limparProfessor = new ActionListener() {
+		ActionListener limparTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
 				//professor = new Professor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), departamento.getSelectedIndex());
@@ -147,23 +156,27 @@ public class ViewTecnico {
 			}
 		};
 		
-		ActionListener buscarProfessor = new ActionListener() {
+		ActionListener buscarTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				tecnico = controleInstitucional.buscarTecnico(siapeBusca.getText());
-				tabela.setValueAt(tecnico, 0, 0);
+				List<Usuario> listaTecnico = controleInstitucional.buscarTecnico(siape.getText());
+				int cont = 0;
+				for (Usuario tecnico : listaTecnico) {
+					tabela.setValueAt(tecnico, cont, cont);
+					cont++;
+				}
 				
 			}
 		};
 		
-		ActionListener alterarProfessor = new ActionListener() {
+		ActionListener alterarTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
 				tecnico.modificarNome(nome.getText());
 				//professor.modificarSiape(siape.getText());
 				tecnico.modificarEmail(email.getText());
 				tecnico.modificarTelefone(telefone.getText());
-				tecnico.modificarDepartamento(departamento.getSelectedIndex());
+				tecnico.modificarDepartamento((Departamento)departamento.getSelectedItem());
 				controleInstitucional.alterar(tecnico);
 				
 			}
@@ -176,7 +189,7 @@ public class ViewTecnico {
 				siape.setText(tecnico.recuperarSiape());
 				email.setText(tecnico.recuperarEmail());
 				telefone.setText(tecnico.recuperarTelefone());
-				departamento.setSelectedIndex(tecnico.recuperarDepartamento());
+				departamento.setSelectedItem(tecnico.recuperarDepartamento());
 				
 				tabbedPane.setSelectedComponent(panel);
 				
@@ -215,15 +228,15 @@ public class ViewTecnico {
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		panel.add(btnCancelar, "flowx,cell 1 7");
-		btnCancelar.addActionListener(limparProfessor);
+		btnCancelar.addActionListener(limparTecnico);
 		
 		JButton btnAlterar = new JButton("Alterar");
 		panel.add(btnAlterar, "cell 1 7");
-		btnAlterar.addActionListener(alterarProfessor);
+		btnAlterar.addActionListener(alterarTecnico);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		panel.add(btnSalvar, "cell 1 7");
-		btnSalvar.addActionListener(salvarProfessor);
+		btnSalvar.addActionListener(salvarTecnico);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Consulta", null, panel_1, null);
@@ -238,7 +251,7 @@ public class ViewTecnico {
 		
 		btnBuscar = new JButton("Buscar");
 		panel_1.add(btnBuscar, "cell 1 1");
-		btnBuscar.addActionListener(buscarProfessor);
+		btnBuscar.addActionListener(buscarTecnico);
 		
 		tabela = new JTable();
 		tabela.setModel(new DefaultTableModel(

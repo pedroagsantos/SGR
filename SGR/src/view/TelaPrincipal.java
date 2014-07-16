@@ -22,6 +22,7 @@ public class TelaPrincipal extends JFrame{
 	private JMenuItem mntmTipoDeRecurso;
 	private JMenuItem mntmRecurso;
 	private JMenu mnSolicitao;
+	private JMenu mnGerenciarAtividades;
 	private JMenuItem mntmNovaSolicitao;
 	private JMenuItem mntmBuscarAtividade;
 
@@ -89,6 +90,14 @@ public class TelaPrincipal extends JFrame{
 		
 		mntmBuscarAtividade = new JMenuItem("Buscar Solicita\u00E7\u00E3o");
 		mnSolicitao.add(mntmBuscarAtividade);
+		
+		mnGerenciarAtividades = new JMenu("Gerenciar atividades");
+		menuBar.add(mnGerenciarAtividades);
+		
+		mntmBuscarAtividade = new JMenuItem("Buscar Solicita\u00E7\u00E3o");
+		mnSolicitao.add(mntmBuscarAtividade);
+		
+		
 	}
 	
 	public TelaPrincipal() {

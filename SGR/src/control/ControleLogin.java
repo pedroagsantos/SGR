@@ -7,17 +7,16 @@ import model.Usuario;
 public class ControleLogin {
 	
 	
-	public Usuario Login(String siape, String senha){
+	public Usuario login(String siape, String senha){
 		
 		for (Departamento dpto :Universidade.recuperaInstancia().recuperaDepartamentos()){
-			for (Usuario usr : dpto.listar()) {
-				
-				if(usr.recuperarSiape() == siape && usr.recuperaSenha() == senha){
-					return usr.recuperatUsuarioLogado();
+			for (Usuario usr : dpto.listarUsuarios()) {
+				if(usr.recuperarSiape().equals(siape) && usr.recuperaSenha().equals(senha)){
+					Usuario.setUsuarioLogado(usr);
+					return usr;
 				}
 			}
 		}
-		
 		return null;
 	}
 }

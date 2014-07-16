@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,22 +32,6 @@ public class ViewTipoRecurso {
 	private TipoRecurso tipoRecurso;
 	
 	private JButton btnBuscar;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewProf window = new ViewProf();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the application.
@@ -109,17 +94,19 @@ public class ViewTipoRecurso {
 		ActionListener buscarTipoRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				tipoRecurso = controleInstitucional.buscarTipoRecurso(tipoBusca.getText());
-				tabela.setValueAt(tipoRecurso, 0, 0);
+				List<TipoRecurso> listatipoRecurso = controleInstitucional.buscarTipoRecurso(tipoBusca.getText());
+				int cont = 0;
+				for (TipoRecurso tipoRecurso : listatipoRecurso) {
+					tabela.setValueAt(tipoRecurso, cont, 0);
+					cont++;
+				}
 				
 			}
 		};
 		
 		ActionListener alterarTipoRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//controleInstitucional = new ControleInstitucional();
 				tipoRecurso.modificarTipo(tipo.getText());
-				//professor.modificarSiape(siape.getText());
 				controleInstitucional.alterar(tipoRecurso);
 				
 			}

@@ -1,26 +1,16 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-import javax.swing.JFrame;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
-import control.ControleAtividade;
-import control.ControleInstitucional;
-
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JTextField;
 
 import model.Atividade;
 import model.Intervalo;
@@ -29,15 +19,17 @@ import model.Recurso;
 import model.Tecnico;
 import model.TipoRecurso;
 import net.miginfocom.swing.MigLayout;
+import control.ControleAtividade;
+import control.ControleInstitucional;
 
 public class ViewAtividade {
 
 	private JFrame frame;
 	private JTextField codigo;
-	private JComboBox professorCombo;
-	private JComboBox intervaloCombo;
-	private JComboBox tipoRecursoCombo;
-	private JComboBox recursoCombo;
+	private JComboBox<Professor> professorCombo;
+	private JComboBox<Intervalo> intervaloCombo;
+	private JComboBox<TipoRecurso> tipoRecursoCombo;
+	private JComboBox<Recurso> recursoCombo;
 	private JList<Object> recursoJlist;
 	
 	private ControleInstitucional controleInstitucional;
@@ -49,22 +41,6 @@ public class ViewAtividade {
 	private Intervalo intervalos;
 	private Atividade atividade;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewAtv window = new ViewAtv();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
 	/**
 	 * Create the application.
 	 */
@@ -97,9 +73,9 @@ public class ViewAtividade {
 		JLabel lblProfessor = new JLabel("Professor:");
 		frame.getContentPane().add(lblProfessor, "cell 0 1,alignx trailing");
 		
-		Object[] vetorProfessor = controleInstitucional.getListaProfessor().values().toArray();
+		Object[] vetorProfessor = controleInstitucional.buscarProfessor("").toArray();
 		
-		professorCombo = new JComboBox();
+		professorCombo = new JComboBox<>();
 		professorCombo.setModel(new DefaultComboBoxModel(vetorProfessor));
 		professorCombo.setEditable(true);
 		frame.getContentPane().add(professorCombo, "cell 1 1,growx");
@@ -108,7 +84,7 @@ public class ViewAtividade {
 		frame.getContentPane().add(lblTipoDeRecurso, "cell 0 2,alignx trailing");
 		
 		Object[] vetorTipoRecurso;
-		vetorTipoRecurso = controleInstitucional.getListaTipoRecurso().values().toArray();
+		vetorTipoRecurso = controleInstitucional.buscarTipoRecurso("").toArray();
 		tipoRecursoCombo = new JComboBox();
 		tipoRecursoCombo.setModel(new DefaultComboBoxModel(vetorTipoRecurso));
 		tipoRecursoCombo.setEditable(true);
@@ -121,13 +97,7 @@ public class ViewAtividade {
 		JLabel lblRecurso = new JLabel("Recurso:");
 		frame.getContentPane().add(lblRecurso, "cell 0 3,alignx trailing");
 		
-		/*Object[] vetorRecurso;
-		vetorRecurso = tipoRec.listar().toArray();
-		recursoCombo = new JComboBox();
-		recursoCombo.setModel(new DefaultComboBoxModel(vetorRecurso));
-		recursoCombo.setEditable(true);*/
-		
-		recursoJlist = new JList<>(tipoRec.listar().toArray());
+		recursoJlist = new JList<>(tipoRec.listarRecursos().toArray());
 		
 		frame.getContentPane().add(recursoJlist, "cell 1 3,growx");
 		
@@ -145,8 +115,6 @@ public class ViewAtividade {
 		
 		ActionListener salvarAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//controleInstitucional = new ControleInstitucional();
-				//professor = new Professor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), departamento.getSelectedIndex());
 				atividade = new Atividade(codigo.getText(), 
 											professorCombo.getSelectedItem(), 
 											tecnicoResponsavel, 

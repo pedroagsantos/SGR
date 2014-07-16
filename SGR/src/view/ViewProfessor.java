@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Departamento;
 import model.Professor;
 import model.Universidade;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import control.ControleInstitucional;
 
@@ -115,8 +117,16 @@ public class ViewProfessor {
 		panel.add(lblDepartamento, "cell 0 4,alignx trailing");
 		
 		
-		Departamento[] vetorDepartamento;
-		vetorDepartamento = (Departamento[]) Universidade.recuperaInstancia().recuperaDepartamentos().toArray();
+		//Departamento[] vetorDepartamento;
+		
+		Departamento[] vetorDepartamento = new Departamento[Universidade.recuperaInstancia().recuperaDepartamentos().toArray().length];
+		int cont = 0;
+		for(Object depto : Universidade.recuperaInstancia().recuperaDepartamentos().toArray()){
+			Departamento departamento = (Departamento) depto;
+			vetorDepartamento[cont] = departamento;
+			cont++;
+		}
+		
 		departamento = new JComboBox<Departamento>();
 		departamento.setModel(new DefaultComboBoxModel<Departamento>(vetorDepartamento));
 		departamento.setEditable(true);
@@ -126,8 +136,7 @@ public class ViewProfessor {
 		ActionListener salvarProfessor = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				professor = new Professor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento) departamento.getSelectedItem());
-				controleInstitucional.inserir(professor);
+				controleInstitucional.inserirProfessor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento) departamento.getSelectedItem());
 				
 			}
 		};
@@ -151,8 +160,12 @@ public class ViewProfessor {
 		ActionListener buscarProfessor = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				professor = controleInstitucional.buscarProfessor(siapeBusca.getText());
-				tabela.setValueAt(professor, 0, 0);
+				List<Usuario> listaProfessor = controleInstitucional.buscarProfessor(siape.getText());
+				int cont = 0;
+				for (Usuario professor : listaProfessor) {
+					tabela.setValueAt(professor, cont, cont);
+					cont++;
+				}
 				
 			}
 		};

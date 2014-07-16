@@ -35,7 +35,7 @@ public class Departamento {
             this.usuarios.add(tecnico);
     }
    
-    public List<Usuario> listar(){
+    public List<Usuario> listarUsuarios(){
     	
     	return this.usuarios;
     }
@@ -75,7 +75,7 @@ public class Departamento {
 			if (professor.recuperarSiape().isEmpty()
 					|| professor.recuperarSiape() == null){
 				for (Usuario usuario : this.usuarios) {
-					if(usuario instanceof Tecnico)
+					if(usuario instanceof Professor)
 						listaRetorno.add(usuario);
 				}
 			}
@@ -125,19 +125,15 @@ public class Departamento {
 
         ArrayList<TipoRecurso> listaRetorno = new ArrayList<TipoRecurso>();
 
-		if (tipoRecurso instanceof TipoRecurso) {
-			if (((TipoRecurso) tipoRecurso).recuperarTipo() == null)
+			if ( tipoRecurso.recuperarTipo() == null || tipoRecurso.recuperarTipo().isEmpty())
 				listaRetorno.addAll(this.tipoRecursos);
 			else {
 				for (TipoRecurso tipoRecursos : this.tipoRecursos) {
-					if (tipoRecursos instanceof TipoRecurso) {
-						if (tipoRecursos.recuperarTipo().indexOf(
-								((TipoRecurso) tipoRecursos).recuperarTipo()) > -1)
-							listaRetorno.add(tipoRecursos);
-					}
+					if (tipoRecursos.recuperarTipo().indexOf(
+							tipoRecursos.recuperarTipo()) > -1)
+						listaRetorno.add(tipoRecursos);
 				}
 			}
-		}
 
         return listaRetorno;
     }

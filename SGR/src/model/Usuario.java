@@ -64,7 +64,7 @@ public abstract class Usuario {
 		this.senha = senha;
 	}
 	
-	public static Usuario recuperatUsuarioLogado(){
+	public static Usuario recuperaUsuarioLogado(){
 		return usrLogado;
 	}
 	

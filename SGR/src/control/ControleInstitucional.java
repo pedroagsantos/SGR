@@ -1,7 +1,6 @@
 package control;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import model.Departamento;
 import model.Professor;
@@ -11,29 +10,19 @@ import model.Usuario;
 
 public class ControleInstitucional {
 
-	private Departamento depto = Usuario.recuperatUsuarioLogado().recuperarDepartamento();
+	private Departamento depto = Usuario.recuperaUsuarioLogado().recuperarDepartamento();
 	
-	public void inserir(Professor professor) {
-
-		/*if (buscarProfessor(professor.recuperarSiape()) != null) {
-			
-			return false;			
-		}*/
+	public void inserirProfessor(String nome, String siape, String email, String telefone, Departamento dept) {
+		Professor professor = new Professor(nome, siape, email, telefone, dept);
 		depto.inserirProfessor(professor);
-		
-		//listaProfessor.add(professor);
-		//return true;
-
 	}
 
 	public boolean alterar(Professor professor) {
 
-		Professor prof = buscarProfessor(professor.recuperarSiape());	
+		Usuario prof = buscarProfessor(professor.recuperarSiape()).iterator().next();	
 		if (prof !=null) {
 			depto.remover(prof);
-			depto.inserir(professor);
-			//listaProfessor.remove(prof);
-			//listaProfessor.add(professor);
+			depto.inserirProfessor(professor);
 			return true;
 		}
 
@@ -41,22 +30,18 @@ public class ControleInstitucional {
 
 	}
 
-	public void inserir(Tecnico tecnico) {
-		//listaTecnico.add(tecnico);
+	public void inserirTecnico(String nome, String siape, String email, String telefone, Departamento dept) {
+		Tecnico tecnico = new Tecnico(nome, siape, email, telefone, dept);
 		depto.inserirTecnico(tecnico);
 
 	}
 
 	
 
-	public Professor buscarProfessor(String siape) {
+	public List<Usuario> buscarProfessor(String siape) {
 		// TODO Auto-generated method stub
-		for (Professor professor : depto.retornaMapaProfessor().values()) {
-			if (professor.recuperarSiape().equals(siape)) {
-				return professor;
-			}
-		}
-		return null;
+		Professor parametro = new Professor(null, siape, null, null, null);
+			return depto.listarProfessor(parametro); 
 	}
 
 	public void inserir(TipoRecurso tp) {
@@ -65,34 +50,21 @@ public class ControleInstitucional {
 
 	}
 
-	public HashMap<String, Professor> getListaProfessor() {
-		return depto.retornaMapaProfessor();
-	}
-	
-	public HashMap<String, Tecnico> getListaTecnico() {
-		return depto.retornaMapaTecnico();
-	}
-	
-	public HashMap<String, TipoRecurso> getListaTipoRecurso() {
-		return depto.retornaMapaTipoRecurso();
-	}
-
-	public Tecnico buscarTecnico(String siape) {
-		for (Tecnico tecnico : depto.retornaMapaTecnico().values()) {
+	public List<Usuario> buscarTecnico(String siape) {
+		Tecnico procurado = new Tecnico(null, siape, null, null, null);
+		/*for (Usuario tecnico : depto.listarTecnico(procurado)) {
 			if (tecnico.recuperarSiape().equals(siape)) {
 				return tecnico;
 			}
-		}
-		return null;
+		}*/
+		return depto.listarTecnico(procurado);
 	}
 
 	public boolean alterar(Tecnico tecnico) {
-		Tecnico tec = buscarTecnico(tecnico.recuperarSiape());	
+		Usuario tec = buscarTecnico(tecnico.recuperarSiape()).iterator().next();	
 		if (tec !=null) {
 			depto.remover(tec);
-			depto.inserir(tecnico);
-			//listaProfessor.remove(prof);
-			//listaProfessor.add(professor);
+			depto.inserirTecnico(tecnico);
 			return true;
 		}
 
@@ -100,22 +72,18 @@ public class ControleInstitucional {
 		
 	}
 
-	public TipoRecurso buscarTipoRecurso(String tipo) {
+	public List<TipoRecurso> buscarTipoRecurso(String tipo) {
 		
-		for (TipoRecurso tipoRecurso : depto.retornaMapaTipoRecurso().values()) {
-			if (tipoRecurso.recuperarTipo().equals(tipo)) {
-				return tipoRecurso;
-			}
-		}
-		return null;
+		TipoRecurso parametro = new TipoRecurso(tipo);
+		return depto.listarTipoRecurso(parametro);
 		
 	}
 
 	public boolean alterar(TipoRecurso tipoRecurso) {
-		TipoRecurso tp = buscarTipoRecurso(tipoRecurso.recuperarTipo());	
+		TipoRecurso tp = buscarTipoRecurso(tipoRecurso.recuperarTipo()).iterator().next();	
 		if (tp !=null) {
 			depto.remover(tp);
-			depto.inserir(tipoRecurso);
+			depto.inserirTipoRecurso(tipoRecurso);
 			//listaProfessor.remove(prof);
 			//listaProfessor.add(professor);
 			return true;
