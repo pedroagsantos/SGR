@@ -30,9 +30,15 @@ public class Departamento {
     	this.usuarios.add(professor);
     }
 
-    public void alterarTecnico(Tecnico tecnico){
+    public boolean alterarTecnico(Tecnico tecnico){
+    	Usuario tec = listarTecnico(tecnico).iterator().next();	
+		if (tec !=null) {
+			remover(tec);
+			inserirTecnico(tecnico);
+			return true;
+		}
 
-            this.usuarios.add(tecnico);
+		return false;
     }
    
     public List<Usuario> listarUsuarios(){
@@ -41,9 +47,14 @@ public class Departamento {
     }
     
 
-    public void alterarProfessor(Professor professor){
-
-    	this.usuarios.add(professor);
+    public boolean alterarProfessor(Professor professor){
+    	Usuario prof = listarProfessor(professor).iterator().next();	
+		if (prof !=null) {
+			remover(prof);
+			inserirProfessor(professor);
+			return true;
+		}
+		return false;
     }
 
     public List<Usuario> listarTecnico(Tecnico tecnico){
@@ -52,16 +63,17 @@ public class Departamento {
 			if (tecnico.recuperarSiape().isEmpty()
 					|| tecnico.recuperarSiape() == null){
 				for (Usuario usuario : this.usuarios) {
-					if(usuario instanceof Tecnico)
+					if(usuario instanceof Tecnico  && 
+							usuario.recuperarStatus() != Status.DESABILITADO.valor())
 						listaRetorno.add(usuario);
 				}
 			}
 			else {
-				for (Usuario usuarios : this.usuarios) {
-					if (usuarios instanceof Tecnico) {
-						if (usuarios.recuperarSiape().indexOf(
-								((Tecnico) usuarios).recuperarSiape()) > -1)
-							listaRetorno.add(usuarios);
+				for (Usuario usuario : this.usuarios) {
+					if (usuario instanceof Tecnico) {
+						if (usuario.recuperarSiape().indexOf(usuario.recuperarSiape()) > -1  && 
+								usuario.recuperarStatus() != Status.DESABILITADO.valor())
+							listaRetorno.add(usuario);
 					}
 				}
 			}
@@ -75,14 +87,16 @@ public class Departamento {
 			if (professor.recuperarSiape().isEmpty()
 					|| professor.recuperarSiape() == null){
 				for (Usuario usuario : this.usuarios) {
-					if(usuario instanceof Professor)
+					if(usuario instanceof Professor && 
+							usuario.recuperarStatus() != Status.DESABILITADO.valor())
 						listaRetorno.add(usuario);
 				}
 			}
 			else {
 				for (Usuario usuario : this.usuarios) {
 					if (usuario instanceof Professor) {
-						if (professor.recuperarSiape().indexOf(usuario.recuperarSiape()) > -1)
+						if (professor.recuperarSiape().indexOf(usuario.recuperarSiape()) > -1 && 
+								usuario.recuperarStatus() != Status.DESABILITADO.valor())
 							listaRetorno.add(usuario);
 					}
 				}
@@ -116,22 +130,33 @@ public class Departamento {
     	tipoRecursos.add(tipoRecurso);
     }
     
-    public void alteraTipoRecurso(TipoRecurso tipoRecurso){
+    public boolean alteraTipoRecurso(TipoRecurso tipoRecurso){
+    	TipoRecurso tp = listarTipoRecurso(tipoRecurso).iterator().next();	
+		if (tp !=null) {
+			remover(tp);
+			inserirTipoRecurso(tipoRecurso);
+			return true;
+		}
 
-        this.tipoRecursos.add(tipoRecurso);
+		return false;
+		
     }
     
     public List<TipoRecurso> listarTipoRecurso(TipoRecurso tipoRecurso){
 
         ArrayList<TipoRecurso> listaRetorno = new ArrayList<TipoRecurso>();
 
-			if ( tipoRecurso.recuperarTipo() == null || tipoRecurso.recuperarTipo().isEmpty())
-				listaRetorno.addAll(this.tipoRecursos);
+			if ( tipoRecurso.recuperarTipo() == null || tipoRecurso.recuperarTipo().isEmpty()){
+				for (TipoRecurso tipoRec : this.tipoRecursos) {
+					if(tipoRec.recuperaStatus() != Status.DESABILITADO.valor())
+						listaRetorno.add(tipoRec);;
+				}
+			}
 			else {
-				for (TipoRecurso tipoRecursos : this.tipoRecursos) {
-					if (tipoRecursos.recuperarTipo().indexOf(
-							tipoRecursos.recuperarTipo()) > -1)
-						listaRetorno.add(tipoRecursos);
+				for (TipoRecurso tipoRec : this.tipoRecursos) {
+					if (tipoRec.recuperarTipo().indexOf(
+							tipoRec.recuperarTipo()) > -1 && tipoRec.recuperaStatus() != Status.DESABILITADO.valor())
+						listaRetorno.add(tipoRec);
 				}
 			}
 

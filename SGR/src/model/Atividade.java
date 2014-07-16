@@ -10,11 +10,11 @@ public class Atividade {
     private Professor professorResponsavel;
     private Tecnico tecnicoResponsavel;
     private HashMap<String, Recurso> hmRecurso = new HashMap<>();
-    private int intervalo;
+    private Intervalo intervalo;
     private String codigo;
     private Integer status;
     
-    public Atividade(String codigo, Object prof, Tecnico tec, List<Object> recursos, int intervalo, int status) {
+    public Atividade(String codigo, Professor prof, Tecnico tec, List<Recurso> recursos, Intervalo intervalo, Status status) {
 		// TODO Auto-generated constructor stub
     	this.professorResponsavel = (Professor) prof;
     	this.tecnicoResponsavel = tec;
@@ -24,7 +24,7 @@ public class Atividade {
 
     	this.intervalo = intervalo;
     	this.codigo = codigo;
-    	this.status = status;
+    	this.status = status.valor();
 	}
 
     public int recuperarStatus() {

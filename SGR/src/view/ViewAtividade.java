@@ -2,7 +2,9 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -16,8 +18,10 @@ import model.Atividade;
 import model.Intervalo;
 import model.Professor;
 import model.Recurso;
+import model.Status;
 import model.Tecnico;
 import model.TipoRecurso;
+import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 import control.ControleAtividade;
 import control.ControleInstitucional;
@@ -29,17 +33,16 @@ public class ViewAtividade {
 	private JComboBox<Professor> professorCombo;
 	private JComboBox<Intervalo> intervaloCombo;
 	private JComboBox<TipoRecurso> tipoRecursoCombo;
-	private JComboBox<Recurso> recursoCombo;
-	private JList<Object> recursoJlist;
+	private JList<Recurso> recursoJlist;
 	
 	private ControleInstitucional controleInstitucional;
 	private ControleAtividade controleAtividade;
 	private Tecnico tecnicoResponsavel;
 	private Professor professorResponsavel;
 	private TipoRecurso tipoRec;
-	private HashMap<String, Recurso> recursos;
 	private Intervalo intervalos;
 	private Atividade atividade;
+	private List<Recurso> recursosSelecionados;
 
 	/**
 	 * Create the application.
@@ -55,7 +58,7 @@ public class ViewAtividade {
 		
 		controleInstitucional = new ControleInstitucional();
 		controleAtividade = new ControleAtividade();
-		
+		recursosSelecionados = new ArrayList<Recurso>();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +89,18 @@ public class ViewAtividade {
 		Object[] vetorTipoRecurso;
 		vetorTipoRecurso = controleInstitucional.buscarTipoRecurso("").toArray();
 		tipoRecursoCombo = new JComboBox();
+		tipoRecursoCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				arg0.getActionCommand();
+				recursosSelecionados.addAll(recursoJlist.getSelectedValuesList());
+				tipoRec = (TipoRecurso) tipoRecursoCombo.getSelectedItem(); 
+				Recurso[] recursoArray = new Recurso[tipoRec.listarRecursos().size()];
+				for(int i = 0; i < recursoArray.length; i++){
+					recursoArray[i] = (Recurso) tipoRec.listarRecursos().toArray()[i];
+				}
+				recursoJlist.setListData(recursoArray);
+			}
+		});
 		tipoRecursoCombo.setModel(new DefaultComboBoxModel(vetorTipoRecurso));
 		tipoRecursoCombo.setEditable(true);
 		frame.getContentPane().add(tipoRecursoCombo, "cell 1 2,growx");
@@ -97,8 +112,11 @@ public class ViewAtividade {
 		JLabel lblRecurso = new JLabel("Recurso:");
 		frame.getContentPane().add(lblRecurso, "cell 0 3,alignx trailing");
 		
-		recursoJlist = new JList<>(tipoRec.listarRecursos().toArray());
-		
+		Recurso[] recursoArray = new Recurso[tipoRec.listarRecursos().size()];
+		for(int i = 0; i < recursoArray.length; i++){
+			recursoArray[i] = (Recurso) tipoRec.listarRecursos().toArray()[i];
+		}
+		recursoJlist = new JList<Recurso>(recursoArray);
 		frame.getContentPane().add(recursoJlist, "cell 1 3,growx");
 		
 		JLabel lblIntervalo = new JLabel("Intervalo:");
@@ -106,7 +124,7 @@ public class ViewAtividade {
 		
 		Object[] vetorIntervalo;
 		vetorIntervalo = intervalos.values();
-		intervaloCombo = new JComboBox();
+		intervaloCombo = new JComboBox<Intervalo>();
 		intervaloCombo.setModel(new DefaultComboBoxModel(vetorIntervalo));
 		intervaloCombo.setEditable(true);
 		frame.getContentPane().add(intervaloCombo, "cell 1 4,growx");
@@ -115,14 +133,11 @@ public class ViewAtividade {
 		
 		ActionListener salvarAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atividade = new Atividade(codigo.getText(), 
-											professorCombo.getSelectedItem(), 
-											tecnicoResponsavel, 
-											recursoJlist.getSelectedValuesList(), 
-											intervaloCombo.getSelectedIndex()+1, 
-											2);
-				
-				controleAtividade.inserir(atividade);
+				Usuario usr = Usuario.recuperaUsuarioLogado();
+				Tecnico tec = null;
+				if(usr instanceof Tecnico)
+					tec = (Tecnico)usr;
+				controleAtividade.inserir(codigo.getText(), (Professor)professorCombo.getSelectedItem() , tec, recursosSelecionados, (Intervalo)intervaloCombo.getSelectedItem() , Status.PENDENTE);
 				
 			}
 		};
@@ -130,6 +145,13 @@ public class ViewAtividade {
 		/*********************************************************/
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
 		frame.getContentPane().add(btnCancelar, "flowx,cell 1 8");
 		
 		JButton btnLimpar = new JButton("Limpar");

@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import model.Usuario;
@@ -51,7 +52,7 @@ public class ViewLogin {
 		lblSenha.setBounds(96, 136, 46, 14);
 		frame.getContentPane().add(lblSenha);
 		
-		senha = new JTextField();
+		senha = new JPasswordField();
 		senha.setBounds(152, 133, 140, 20);
 		frame.getContentPane().add(senha);
 		senha.setColumns(10);
@@ -61,12 +62,8 @@ public class ViewLogin {
 			public void actionPerformed(ActionEvent arg0) {
 				Usuario procurado = controleLogin.login(siape.getText(), senha.getText());
 				if(procurado == null){
-					new JOptionPane("Usuario nao encontrado!", JOptionPane.ERROR_MESSAGE);
-				}
-				else if(!(procurado.recuperaSenha().equals(senha.getText()))){
-					new JOptionPane("Usuario/Senha invalido", JOptionPane.ERROR_MESSAGE);
-				}
-				else{
+					JOptionPane.showMessageDialog(frame, "Usuario/Senha invalido!", "Erro", JOptionPane.ERROR_MESSAGE);
+				} else{
 					Usuario.setUsuarioLogado(procurado);
 					TelaPrincipal principal = new TelaPrincipal();
 					frame.dispose();
