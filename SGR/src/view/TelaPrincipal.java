@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -20,6 +21,7 @@ public class TelaPrincipal extends JFrame{
 	private ViewTecnico viewTecnico;
 	private ViewTipoRecurso viewTipoRecurso;
 	private ViewAvaliarAtividadesPendentes viewAtividadesPendentes; 
+	private ViewRecurso viewRecurso;
 	private JMenuBar menuBar;
 	private JMenu mnCadastro;
 	private JMenu mnSolicitao;
@@ -46,7 +48,7 @@ public class TelaPrincipal extends JFrame{
 		
 		ActionListener abrirCadAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				viewAtividade = new ViewAtividade();
+					viewAtividade = new ViewAtividade();
 				
 			}
 		};
@@ -79,9 +81,15 @@ public class TelaPrincipal extends JFrame{
 			}
 		};
 		
+		ActionListener abrirViewRecurso = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewRecurso = new ViewRecurso();
+			}
+		};
 		ActionListener abrirMinhasAtividades = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewAtividadesPendentes = new ViewAvaliarAtividadesPendentes();
+
 				
 			}
 		};
@@ -109,6 +117,7 @@ public class TelaPrincipal extends JFrame{
 		
 		mntmRecurso = new JMenuItem("Recurso");
 		mnCadastro.add(mntmRecurso);
+		mntmRecurso.addActionListener(abrirViewRecurso);
 		
 		mnSolicitao = new JMenu("Solicita\u00E7\u00E3o");
 		menuBar.add(mnSolicitao);
@@ -224,10 +233,7 @@ public class TelaPrincipal extends JFrame{
 		mnGerenciarAtividades.add(mntmCancelarAtividade);
 		mntmCancelarAtividade.addActionListener(abrirCancelarAtividade);
 		
-		/*mntmMinhasAtividades = new JMenuItem("Minhas Atividades");
-		mnGerenciarAtividades.add(mntmMinhasAtividades);
-		mntmMinhasAtividades.addActionListener();*/
-		
+				
 	}
 	
 	public TelaPrincipal() {
