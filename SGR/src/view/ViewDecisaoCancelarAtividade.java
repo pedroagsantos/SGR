@@ -98,7 +98,7 @@ public class ViewDecisaoCancelarAtividade {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				//controleAtividade.r(atividade);
+				controleAtividade.cancelarAtividade(atividade);
 				//JOptionPane.showMessageDialog(null, "Atividade Aceita!");
 				
 			}

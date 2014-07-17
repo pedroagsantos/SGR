@@ -18,6 +18,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.AbstractListModel;
@@ -194,9 +196,10 @@ public class ViewAvaliarAtividadesPendentes {
 		
 		list = new JList();
 		
-		List<Atividade> atividades = controleAtividade.recuperarAtividades(Status.PENDENTE);		
+		List<Atividade> atividades = controleAtividade.recuperarAtividades(Status.PENDENTE);
+		atividades.addAll(controleAtividade.recuperarAtividades(Status.APROVADA));
+	
 		atividadesArray = new Atividade[atividades.size()];
-		
 		
 		for(int i = 0; i < atividadesArray.length; i++)
 			atividadesArray[i] = (Atividade) atividades.get(i);
