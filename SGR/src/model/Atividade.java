@@ -54,6 +54,13 @@ public class Atividade {
     	
     }
     
+    public void desalocarRecursos() {
+    	
+    	for (Recurso recurso : hmRecurso.values())
+			recurso.modificarStatusRecurso(Status.DISPONIVEL);
+    	
+    }
+    
     public String toStringAtividadePendente() {
     	// TODO Auto-generated method stub
     	
@@ -61,6 +68,24 @@ public class Atividade {
     	
     	sb.append("Codigo da Atividade: " + codigo + "\n");
     	sb.append("Professor Responsavel: " + professorResponsavel + "\n");
+    	sb.append("Recurso(s) Alocado(s): " + "\n");
+    	
+    	for (Recurso recurso : hmRecurso.values())
+    		sb.append("Cod -> " + recurso.recuperarPatrimonio() + " " + recurso.recuperarDescricao() + "\n");
+
+    	sb.append("Intervalo : " + intervalo);
+    	
+    	return sb.toString();
+    }
+    
+    public String toStringAtividade() {
+    	// TODO Auto-generated method stub
+    	
+    	StringBuilder sb =  new StringBuilder();
+    	
+    	sb.append("Codigo da Atividade: " + codigo + "\n");
+    	sb.append("Professor Responsavel: " + professorResponsavel + "\n");
+    	sb.append("Professor Tecnico: " + tecnicoResponsavel + "\n");
     	sb.append("Recurso(s) Alocado(s): " + "\n");
     	
     	for (Recurso recurso : hmRecurso.values())

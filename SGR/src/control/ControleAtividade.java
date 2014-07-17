@@ -36,11 +36,6 @@ public class ControleAtividade {
 		return depto.listarTipoRecurso(new TipoRecurso(tipo));
 	}
 	
-	public List<Atividade> recuperarAtividadesPendentes() {
-		
-		return depto.recuperarAtividadesPendentes();
-	}
-	
 	public void aprovarAtividade(Atividade atividade) {
 		
 		Tecnico tecnicoResponsavel = (Tecnico) Usuario.recuperaUsuarioLogado();
@@ -50,8 +45,46 @@ public class ControleAtividade {
 		atividade.modificarStatus(Status.ALOCADO);	
 	}
 	
+	public List<Atividade> recuperarAtividades(Status status) {
+		
+		return depto.recuperarAtividades(status);
+	}
+	
+	public List<Atividade> recuperarAtividades() {
+		
+		return depto.recuperarAtividades();
+	}
+	
 	
 	public String recuperaCodigoAtivdade(){
     	return depto.recuperaCodigoAtivdade();
     }
+
+	public void reprovarAtividade(Atividade atividade) {
+		
+		Tecnico tecnicoResponsavel = (Tecnico) Usuario.recuperaUsuarioLogado();
+		
+		atividade.atribuirTecnicoResponsavel(tecnicoResponsavel);
+		
+		atividade.modificarStatus(Status.RECUSADA);
+		
+	}
+	
+	public void cancelarAtividade(Atividade atividade) {
+		
+		if (atividade.recuperarStatus() == Status.APROVADA)
+			cancelarAlocacao(atividade);
+		else
+			atividade.modificarStatus(Status.CANCELADA);
+		
+	}
+	
+	public void cancelarAlocacao(Atividade atividade) {
+		
+		atividade.desalocarRecursos();
+		
+		atividade.modificarStatus(Status.CANCELADA);
+		
+	}
+
 }

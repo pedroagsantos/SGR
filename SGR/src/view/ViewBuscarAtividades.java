@@ -10,20 +10,36 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.AbstractListModel;
+
+import model.Atividade;
+import model.Status;
+import control.ControleAtividade;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class ViewBuscarAtividades {
 
 	private JFrame frame;
-
+	private JComboBox comboBox;
+	private ControleAtividade controleAtividade;
+	private JList list;
+	private Atividade[] atividadesArray;
+	private JButton btnNewButton;
+	private ViewDetalhesAtividade viewDetalhesAtiviade;
 
 	/**
 	 * Create the application.
 	 */
 	public ViewBuscarAtividades() {
+		
 		initialize();
+		
 		frame.setVisible(true);
 	}
 
@@ -32,17 +48,30 @@ public class ViewBuscarAtividades {
 	 */
 	private void initialize() {
 		
+		controleAtividade = new ControleAtividade();
+		list = new JList();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(640,480);
-		
+		frame.setSize(452,404);
 		
 		JLabel lblStatus = new JLabel("Status: ");
+		lblStatus.setBounds(10, 14, 48, 14);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		
+		comboBox.addItem(Status.APROVADA);
+		comboBox.addItem(Status.RECUSADA);
+		comboBox.addItem(Status.CANCELADA);
+		comboBox.addItem(Status.PENDENTE);
+		comboBox.addItem(Status.FINALIZADA);
+		comboBox.addItem(Status.EM_ANDAMENTO);
+		
+		comboBox.setBounds(58, 11, 266, 20);
 		
 		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.setBounds(335, 329, 89, 23);
+		
 		btnVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -51,38 +80,47 @@ public class ViewBuscarAtividades {
 			}
 		});
 		
-		JList list = new JList();
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(lblStatus)
-					.addGap(10)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(list, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(comboBox, Alignment.TRAILING, 0, 366, Short.MAX_VALUE))
-					.addContainerGap())
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(363, Short.MAX_VALUE)
-					.addComponent(btnVoltar)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblStatus))
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(19)
-					.addComponent(list, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnVoltar)
-					.addContainerGap())
-		);
-		frame.getContentPane().setLayout(groupLayout);
+		
+		list.setBounds(58, 50, 366, 268);
+		
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				Atividade atividade = (Atividade) list.getSelectedValue();
+				
+				viewDetalhesAtiviade = new ViewDetalhesAtividade(atividade);
+			
+			}
+		});
+		
+		
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(btnVoltar);
+		frame.getContentPane().add(lblStatus);
+		frame.getContentPane().add(comboBox);
+		frame.getContentPane().add(list);
+		
+		btnNewButton = new JButton("Buscar");
+		
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				Status status = (Status) comboBox.getSelectedItem();
+				
+				List<Atividade> atividades = controleAtividade.recuperarAtividades(status);
+				
+				atividadesArray = new Atividade[atividades.size()];
+				
+				for(int i = 0; i < atividadesArray.length; i++)
+					atividadesArray[i] = (Atividade) atividades.get(i);
+
+				list.setListData(atividadesArray);
+				
+			}
+		});
+		btnNewButton.setBounds(335, 10, 89, 23);
+		frame.getContentPane().add(btnNewButton);
 	}
 }

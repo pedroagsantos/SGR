@@ -24,7 +24,7 @@ import java.awt.event.MouseEvent;
 import net.miginfocom.swing.MigLayout;
 
 
-public class ViewDecisaoAtividadesPendentes {
+public class ViewDecisaoCancelarAtividade {
 
 	/*************************************/
 	//Caso de Uso: Avaliar Atividades Pendentes
@@ -53,7 +53,7 @@ public class ViewDecisaoAtividadesPendentes {
 	/**
 	 * Create the application.
 	 */
-	public ViewDecisaoAtividadesPendentes(Atividade atividade) {
+	public ViewDecisaoCancelarAtividade(Atividade atividade) {
 		
 		this.atividade = atividade;
 		
@@ -92,45 +92,33 @@ public class ViewDecisaoAtividadesPendentes {
 		
 		JLabel lblDadosDaAtividade = new JLabel("Dados da atividade:");
 		
-		JButton btnAceitar = new JButton("Aceitar");
+		JButton btnCancelarAtividade = new JButton("Cancelar Atividade");
 		
-		btnAceitar.addMouseListener(new MouseAdapter() {
+		btnCancelarAtividade.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				controleAtividade.aprovarAtividade(atividade);
+				//controleAtividade.r(atividade);
 				//JOptionPane.showMessageDialog(null, "Atividade Aceita!");
 				
 			}
 		});
 		
-		JButton btnRecusar = new JButton("Recusar");
+		JButton btnVoltar = new JButton("Voltar");
 		
-		btnRecusar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				controleAtividade.reprovarAtividade(atividade);
-				//JOptionPane.showMessageDialog(null, "Atividade Recusada!");
-				
-			}
-		});
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		
-		btnCancelar.addMouseListener(new MouseAdapter() {
+		btnVoltar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
 				frame.dispose();
+				//JOptionPane.showMessageDialog(null, "Atividade Recusada!");
 				
 			}
 		});
 		panel.setLayout(new MigLayout("", "[96px][75px][75px][10px][71px][10px][67px]", "[14px][299px][23px]"));
 		panel.add(textArea, "cell 0 1 7 1,grow");
-		panel.add(btnCancelar, "cell 2 2,alignx left,aligny top");
-		panel.add(btnRecusar, "cell 4 2,alignx left,aligny top");
-		panel.add(btnAceitar, "cell 6 2,alignx left,aligny top");
+		panel.add(btnVoltar, "cell 4 2,alignx left,aligny top");
+		panel.add(btnCancelarAtividade, "cell 6 2,alignx left,aligny top");
 		panel.add(lblDadosDaAtividade, "cell 0 0,alignx left,aligny top");
 		frame.getContentPane().setLayout(groupLayout);
 	}

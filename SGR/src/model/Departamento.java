@@ -28,7 +28,7 @@ public class Departamento {
     public void inserirProfessor(Professor professor){
     	
     	this.usuarios.add(professor);
-    }
+    } 
 
     public boolean alterarTecnico(Tecnico tecnico){
     	Usuario tec = listarTecnico(tecnico).iterator().next();	
@@ -163,18 +163,23 @@ public class Departamento {
         return listaRetorno;
     }
     
-    public List<Atividade> recuperarAtividadesPendentes(){
+    public List<Atividade> recuperarAtividades(Status status){
 
         ArrayList<Atividade> listaRetorno = new ArrayList<Atividade>();
 
 		for (Atividade atividade : atividades) {
-			if(atividade.recuperarStatus() == Status.PENDENTE)
+			if(atividade.recuperarStatus() == status)
 				listaRetorno.add(atividade);
 		}
 
         return listaRetorno;
     }
-   
+    
+    public List<Atividade> recuperarAtividades(){
+
+    	return this.atividades;
+    }
+    
     public void inserirAtividade(Atividade atividade){
     	
     	atividades.add(atividade);

@@ -9,7 +9,7 @@ public enum Status {
     DISPONIVEL(2),
     ALOCADO(3),
 
-    //EM_ANDAMENTO(4),
+    EM_ANDAMENTO(4),
     APROVADA(5),
     RECUSADA(6),
     CANCELADA(7),
