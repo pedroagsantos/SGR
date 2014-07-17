@@ -12,7 +12,7 @@ public class Atividade {
     private HashMap<String, Recurso> hmRecurso = new HashMap<>();
     private Intervalo intervalo;
     private String codigo;
-    private Integer status;
+    private Status status;
     
     public Atividade(String codigo, Professor prof, Tecnico tec, List<Recurso> recursos, Intervalo intervalo, Status status) {
 		// TODO Auto-generated constructor stub
@@ -24,14 +24,14 @@ public class Atividade {
 
     	this.intervalo = intervalo;
     	this.codigo = codigo;
-    	this.status = status.valor();
+    	this.status = status;
 	}
 
-    public int recuperarStatus() {
+    public Status recuperarStatus() {
         return status;
     }
 
-    public void modificarStatus(int status) {
+    public void modificarStatus(Status status) {
         this.status = status;
     }
 
@@ -43,13 +43,39 @@ public class Atividade {
         this.codigo = codigo;
     }
     
+    public void atribuirTecnicoResponsavel(Tecnico tecnicoResponsavel) {
+        this.tecnicoResponsavel = tecnicoResponsavel;
+    }
+    
+    public void alocarRecursos() {
+    	
+    	for (Recurso recurso : hmRecurso.values())
+			recurso.modificarStatusRecurso(Status.ALOCADO);
+    	
+    }
+    
+    public String toStringAtividadePendente() {
+    	// TODO Auto-generated method stub
+    	
+    	StringBuilder sb =  new StringBuilder();
+    	
+    	sb.append("Codigo da Atividade: " + codigo + "\n");
+    	sb.append("Professor Responsavel: " + professorResponsavel + "\n");
+    	sb.append("Recurso(s) Alocado(s): " + "\n");
+    	
+    	for (Recurso recurso : hmRecurso.values())
+    		sb.append("Cod -> " + recurso.recuperarPatrimonio() + " " + recurso.recuperarDescricao() + "\n");
+
+    	sb.append("Intervalo : " + intervalo);
+    	
+    	return sb.toString();
+    }
+    
     @Override
     public String toString() {
     	// TODO Auto-generated method stub
-    	return "Codigo: "+codigo + "\n" +
-    			professorResponsavel + "\n" +
-    			tecnicoResponsavel +  "\n" +
-    			hmRecurso.values()	+ "\n" +
+    	return codigo + " " +
+    			professorResponsavel + " " +
     			intervalo;
     }
 }

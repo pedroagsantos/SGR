@@ -7,7 +7,7 @@ public class Departamento {
 	
 	private String nome;
 	private String codDepto;
-
+	private Integer nextCodAtividade = 0;
     private List<Atividade> atividades = new ArrayList<Atividade>();
     private List<TipoRecurso> tipoRecursos = new ArrayList<TipoRecurso>();
     private List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -119,7 +119,7 @@ public class Departamento {
 
             TipoRecurso tipoRecurso = (TipoRecurso) object;
 
-            tipoRecurso.modificaStatus(Status.DESABILITADO.valor());
+            tipoRecurso.modificaStatus(Status.DESABILITADO);
 
         }
 
@@ -148,17 +148,29 @@ public class Departamento {
 
 			if ( tipoRecurso.recuperarTipo() == null || tipoRecurso.recuperarTipo().isEmpty()){
 				for (TipoRecurso tipoRec : this.tipoRecursos) {
-					if(tipoRec.recuperaStatus() != Status.DESABILITADO.valor())
+					if(tipoRec.recuperaStatus() != Status.DESABILITADO)
 						listaRetorno.add(tipoRec);;
 				}
 			}
 			else {
 				for (TipoRecurso tipoRec : this.tipoRecursos) {
 					if (tipoRec.recuperarTipo().indexOf(
-							tipoRec.recuperarTipo()) > -1 && tipoRec.recuperaStatus() != Status.DESABILITADO.valor())
+							tipoRec.recuperarTipo()) > -1 && tipoRec.recuperaStatus() != Status.DESABILITADO)
 						listaRetorno.add(tipoRec);
 				}
 			}
+
+        return listaRetorno;
+    }
+    
+    public List<Atividade> recuperarAtividadesPendentes(){
+
+        ArrayList<Atividade> listaRetorno = new ArrayList<Atividade>();
+
+		for (Atividade atividade : atividades) {
+			if(atividade.recuperarStatus() == Status.PENDENTE)
+				listaRetorno.add(atividade);
+		}
 
         return listaRetorno;
     }
@@ -166,9 +178,13 @@ public class Departamento {
     public void inserirAtividade(Atividade atividade){
     	
     	atividades.add(atividade);
+    	nextCodAtividade++;
     	
     }
     
+    public String recuperaCodigoAtivdade(){
+    	return String.valueOf(nextCodAtividade);
+    }
     ///Terminar a implementação
     //public void inserirRecurso(Recurso re)
     

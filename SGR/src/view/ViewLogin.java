@@ -65,7 +65,9 @@ public class ViewLogin {
 					JOptionPane.showMessageDialog(frame, "Usuario/Senha invalido!", "Erro", JOptionPane.ERROR_MESSAGE);
 				} else{
 					Usuario.setUsuarioLogado(procurado);
+					//TODO Essa é a tela para todos os usuários (Tá errado)?
 					TelaPrincipal principal = new TelaPrincipal();
+					
 					frame.dispose();
 					principal.setVisible(true);
 				}

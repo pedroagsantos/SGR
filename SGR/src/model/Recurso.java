@@ -6,20 +6,20 @@ public class Recurso {
 
     private String patrimonio;
     private String descricao;
-    private int status;
+    private Status status;
     
-    public Recurso(String patrimonio, String descricao, int status) {
+    public Recurso(String patrimonio, String descricao, Status status) {
 		// TODO Auto-generated constructor stub
     	this.patrimonio = patrimonio;
     	this.descricao = descricao;
     	this.status = status;
 	}
 
-    public void modificarStatusRecurso(Integer status) {
+    public void modificarStatusRecurso(Status status) {
         this.status = status;
     }
 
-    public int recuperarStatusRecurso() {
+    public Status recuperarStatusRecurso() {
         return status;
     }
 

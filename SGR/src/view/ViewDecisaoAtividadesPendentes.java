@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import control.ControleAtividade;
+import model.Atividade;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,11 +30,13 @@ public class ViewDecisaoAtividadesPendentes {
 	/************************************/
 	
 	private JFrame frame;
+	private Atividade atividade;
+	private ControleAtividade controleAtividade;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -42,13 +47,17 @@ public class ViewDecisaoAtividadesPendentes {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public ViewDecisaoAtividadesPendentes() {
+	public ViewDecisaoAtividadesPendentes(Atividade atividade) {
+		
+		this.atividade = atividade;
+		
 		initialize();
+		
 		this.frame.setVisible(true);	
 	}
 
@@ -58,7 +67,7 @@ public class ViewDecisaoAtividadesPendentes {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 440, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -72,6 +81,9 @@ public class ViewDecisaoAtividadesPendentes {
 		);
 		
 		JTextArea textArea = new JTextArea();
+		
+		textArea.setText(atividade.toStringAtividadePendente());
+		
 		textArea.setEditable(false);
 		
 		JLabel lblDadosDaAtividade = new JLabel("Dados da atividade:");
@@ -82,6 +94,8 @@ public class ViewDecisaoAtividadesPendentes {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				controleAtividade.aprovarAtividade(atividade);
+				frame.dispose();
 				JOptionPane.showMessageDialog(null, "Atividade Aceita!");
 				
 			}

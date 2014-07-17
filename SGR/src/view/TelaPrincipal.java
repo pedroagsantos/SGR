@@ -13,10 +13,13 @@ import net.miginfocom.swing.MigLayout;
 public class TelaPrincipal extends JFrame{
 	private ViewProfessor viewProfessor;
 	private ViewAtividade viewAtividade;
+	private ViewBuscarAtividades viewBuscarAtividades;
 	private ViewTecnico viewTecnico;
 	private ViewTipoRecurso viewTipoRecurso;
+	private ViewAvaliarAtividadesPendentes viewAtividadesPendentes; 
 	private JMenuBar menuBar;
 	private JMenu mnCadastro;
+	private JMenuItem mntmAvaliarAtividadesPendente;
 	private JMenuItem mntmProfessor;
 	private JMenuItem mntmTecnico;
 	private JMenuItem mntmTipoDeRecurso;
@@ -43,6 +46,13 @@ public class TelaPrincipal extends JFrame{
 			}
 		};
 		
+		ActionListener abrirBuscarAtividade = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewBuscarAtividades = new ViewBuscarAtividades();
+				
+			}
+		};
+		
 		ActionListener abrirCadTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewTecnico = new ViewTecnico();
@@ -53,6 +63,13 @@ public class TelaPrincipal extends JFrame{
 		ActionListener abrirCadTipoRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewTipoRecurso = new ViewTipoRecurso();
+				
+			}
+		};
+		
+		ActionListener abrirAvaliarAtividadesPendentes = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewAtividadesPendentes = new ViewAvaliarAtividadesPendentes();
 				
 			}
 		};
@@ -90,10 +107,14 @@ public class TelaPrincipal extends JFrame{
 		
 		mntmBuscarAtividade = new JMenuItem("Buscar Solicita\u00E7\u00E3o");
 		mnSolicitao.add(mntmBuscarAtividade);
+		mntmBuscarAtividade.addActionListener(abrirBuscarAtividade);
 		
 		mnGerenciarAtividades = new JMenu("Gerenciar atividades");
 		menuBar.add(mnGerenciarAtividades);
 		
+		mntmAvaliarAtividadesPendente = new JMenuItem("Atividades Pendentes");
+		mnGerenciarAtividades.add(mntmAvaliarAtividadesPendente);
+		mntmAvaliarAtividadesPendente.addActionListener(abrirAvaliarAtividadesPendentes);
 		
 	}
 	

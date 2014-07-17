@@ -5,7 +5,7 @@ import java.util.List;
 public class TipoRecurso {
 
     private List<Recurso> recursos = new ArrayList<>();
-    private int status;
+    private Status status;
     private String tipo;
     
     public TipoRecurso(String tipo) {
@@ -13,11 +13,11 @@ public class TipoRecurso {
     	this.tipo = tipo;
 	}
 
-    public int recuperaStatus() {
+    public Status recuperaStatus() {
         return status;
     }
 
-    public void modificaStatus(int status) {
+    public void modificaStatus(Status status) {
         this.status = status;
     }
 
@@ -45,7 +45,7 @@ public class TipoRecurso {
 
     public void remover(Recurso recurso){
 
-            recurso.modificarStatusRecurso(Status.DESABILITADO.valor());
+            recurso.modificarStatusRecurso(Status.DESABILITADO);
     }
     
     @Override
