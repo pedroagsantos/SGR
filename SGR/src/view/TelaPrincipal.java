@@ -2,7 +2,6 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -14,13 +13,19 @@ import model.Tecnico;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
 
+@SuppressWarnings("unused")
 public class TelaPrincipal extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ViewProfessor viewProfessor;
 	private ViewAtividade viewAtividade;
 	private ViewBuscarAtividades viewBuscarAtividades;
 	private ViewTecnico viewTecnico;
 	private ViewTipoRecurso viewTipoRecurso;
 	private ViewAvaliarAtividadesPendentes viewAtividadesPendentes; 
+	private ViewCancelarAtividade viewCancelarAtividade;
 	private ViewRecurso viewRecurso;
 	private JMenuBar menuBar;
 	private JMenu mnCadastro;
@@ -28,13 +33,14 @@ public class TelaPrincipal extends JFrame{
 	private JMenu mnGerenciarAtividades;
 	//private JMenuItem mntmMinhasAtividades;
 	private JMenuItem mntmCancelarAtividade;
-	private JMenuItem mntmAvaliarAtividadesPendente;
+	private JMenuItem mntmAvaliarAtividadePendente;
 	private JMenuItem mntmProfessor;
 	private JMenuItem mntmTecnico;
 	private JMenuItem mntmTipoDeRecurso;
 	private JMenuItem mntmRecurso;
 	private JMenuItem mntmNovaSolicitao;
 	private JMenuItem mntmBuscarAtividade;
+	
 
 	private void inicializeTecnico() {
 		
@@ -86,11 +92,10 @@ public class TelaPrincipal extends JFrame{
 				viewRecurso = new ViewRecurso();
 			}
 		};
-		ActionListener abrirMinhasAtividades = new ActionListener() {
+		
+		ActionListener abrirCancelarAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				viewAtividadesPendentes = new ViewAvaliarAtividadesPendentes();
-
-				
+				viewCancelarAtividade = new ViewCancelarAtividade();			
 			}
 		};
 		
@@ -129,25 +134,21 @@ public class TelaPrincipal extends JFrame{
 		mnGerenciarAtividades = new JMenu("Gerenciar Atividade");
 		menuBar.add(mnGerenciarAtividades);
 		
-		/*mntmMinhasAtividades = new JMenuItem("Minhas Atividades");
-		mnGerenciarAtividades.add(mntmMinhasAtividades);
-		mntmMinhasAtividades.addActionListener(abrirAvaliarAtividadesPendentes);*/
-		
 		mntmBuscarAtividade = new JMenuItem("Buscar Atividade");
 		mnGerenciarAtividades.add(mntmBuscarAtividade);
 		mntmBuscarAtividade.addActionListener(abrirBuscarAtividade);
 		
+		mntmCancelarAtividade = new JMenuItem("Cancelar atividade");
+		mnGerenciarAtividades.add(mntmCancelarAtividade);
+		mntmCancelarAtividade.addActionListener(abrirCancelarAtividade);
+		
+		mntmAvaliarAtividadePendente = new JMenuItem("Avaliar Atividades Pendentes");
+		mnGerenciarAtividades.add(mntmAvaliarAtividadePendente);
+		mntmAvaliarAtividadePendente.addActionListener(abrirAvaliarAtividadesPendentes);
+		
 	}
 	
 	private void inicializeProfessor() {
-		
-		
-		ActionListener abrirCadProfessor = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewProfessor = new ViewProfessor();
-				
-			}
-		};
 		
 		ActionListener abrirCadAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,27 +160,6 @@ public class TelaPrincipal extends JFrame{
 		ActionListener abrirBuscarAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewBuscarAtividades = new ViewBuscarAtividades();
-				
-			}
-		};
-		
-		ActionListener abrirCadTecnico = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewTecnico = new ViewTecnico();
-				
-			}
-		};
-		
-		ActionListener abrirCadTipoRecurso = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewTipoRecurso = new ViewTipoRecurso();
-				
-			}
-		};
-		
-		ActionListener abrirAvaliarAtividadesPendentes = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewAtividadesPendentes = new ViewAvaliarAtividadesPendentes();
 				
 			}
 		};
@@ -196,24 +176,6 @@ public class TelaPrincipal extends JFrame{
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
-		/*mnCadastro = new JMenu("Cadastro");
-		menuBar.add(mnCadastro);
-		
-		mntmTecnico = new JMenuItem("Tecnico");
-		mnCadastro.add(mntmTecnico);
-		mntmTecnico.addActionListener(abrirCadTecnico);
-		
-		mntmProfessor = new JMenuItem("Professor");
-		mnCadastro.add(mntmProfessor);
-		mntmProfessor.addActionListener(abrirCadProfessor);
-		
-		mntmTipoDeRecurso = new JMenuItem("Tipo de Recurso");
-		mnCadastro.add(mntmTipoDeRecurso);
-		mntmTipoDeRecurso.addActionListener(abrirCadTipoRecurso);
-		
-		mntmRecurso = new JMenuItem("Recurso");
-		mnCadastro.add(mntmRecurso);*/
 		
 		mnSolicitao = new JMenu("Solicita\u00E7\u00E3o");
 		menuBar.add(mnSolicitao);

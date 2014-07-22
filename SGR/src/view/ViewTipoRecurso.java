@@ -48,7 +48,7 @@ public class ViewTipoRecurso {
 		controleInstitucional = new ControleInstitucional();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
 		frame.setVisible(true);
 		frame.setSize(800,600);

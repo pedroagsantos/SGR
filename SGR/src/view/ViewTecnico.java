@@ -43,22 +43,6 @@ public class ViewTecnico {
 	private JButton btnBuscar;
 
 	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewProf window = new ViewProf();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
 	 * Create the application.
 	 */
 	public ViewTecnico() {
@@ -73,7 +57,7 @@ public class ViewTecnico {
 		controleInstitucional = new ControleInstitucional();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
 		frame.setVisible(true);
 		frame.setSize(800,600);

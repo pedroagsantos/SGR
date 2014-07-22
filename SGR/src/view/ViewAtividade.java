@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,7 +17,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -34,6 +32,7 @@ import net.miginfocom.swing.MigLayout;
 import control.ControleAtividade;
 import control.ControleInstitucional;
 
+@SuppressWarnings("unused")
 public class ViewAtividade {
 
 	private JFrame frame;
@@ -112,7 +111,7 @@ public class ViewAtividade {
 		
 		Object[] vetorTipoRecurso;
 		vetorTipoRecurso = controleInstitucional.buscarTipoRecurso("").toArray();
-		tipoRecursoCombo = new JComboBox();
+		tipoRecursoCombo = new JComboBox<TipoRecurso>();
 		
 		tipoRecursoCombo.addActionListener(new ActionListener() {
 			
@@ -202,7 +201,7 @@ public class ViewAtividade {
 				int i = 0;
 				
 				while(it.hasNext()) {
-					Map.Entry par = (Map.Entry)it.next(); 
+					Entry<String, Recurso> par = it.next(); 
 					recursoArray[i++] = (Recurso) par.getValue();
 				}
 				

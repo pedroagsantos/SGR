@@ -66,7 +66,7 @@ public class ViewDesalocarRecurso {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());

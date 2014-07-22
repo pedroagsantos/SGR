@@ -60,7 +60,7 @@ public class ViewDecisaoAlocacao {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 440, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());

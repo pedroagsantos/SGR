@@ -66,7 +66,7 @@ public class ViewFinalizarAtividade {
 		frmAtividades = new JFrame();
 		frmAtividades.setTitle("Finalizar Atividades");
 		frmAtividades.setBounds(100, 100, 640, 480);
-		frmAtividades.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAtividades.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmAtividades.getContentPane());

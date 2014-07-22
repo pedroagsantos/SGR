@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class ViewAtividadeDesalocarRecurso {
+public class ViewAtividadeDesalocarRecurso__ {
 
 	/*************************************/
 	//Caso de Uso: Desalocar Recurso
@@ -33,7 +33,7 @@ public class ViewAtividadeDesalocarRecurso {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewAtividadeDesalocarRecurso window = new ViewAtividadeDesalocarRecurso();
+					ViewAtividadeDesalocarRecurso__ window = new ViewAtividadeDesalocarRecurso__();
 					window.frmAtividades.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class ViewAtividadeDesalocarRecurso {
 	/**
 	 * Create the application.
 	 */
-	public ViewAtividadeDesalocarRecurso() {
+	public ViewAtividadeDesalocarRecurso__() {
 		initialize();
 	}
 

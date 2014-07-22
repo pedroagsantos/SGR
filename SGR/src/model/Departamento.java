@@ -163,12 +163,29 @@ public class Departamento {
         return listaRetorno;
     }
     
+    public List<Atividade> recuperarAtividades(Status status, Professor professorResponsavel){
+
+        ArrayList<Atividade> listaRetorno = new ArrayList<Atividade>();
+
+		for (Atividade atividade : atividades) {
+			
+			if(atividade.recuperarStatus() == status && 
+			atividade.recuperarProfessorResponsavel() == professorResponsavel)
+				
+				listaRetorno.add(atividade);
+		}
+
+        return listaRetorno;
+    }
+    
     public List<Atividade> recuperarAtividades(Status status){
 
         ArrayList<Atividade> listaRetorno = new ArrayList<Atividade>();
 
 		for (Atividade atividade : atividades) {
+			
 			if(atividade.recuperarStatus() == status)
+				
 				listaRetorno.add(atividade);
 		}
 

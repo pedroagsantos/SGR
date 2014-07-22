@@ -28,6 +28,11 @@ public class Atividade {
     	this.status = status;
     	this.data = data;
 	}
+    
+    public Professor recuperarProfessorResponsavel() {
+    	
+    	return professorResponsavel;
+    }
 
     public Status recuperarStatus() {
         return status;

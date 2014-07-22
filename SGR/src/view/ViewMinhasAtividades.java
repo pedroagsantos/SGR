@@ -43,7 +43,7 @@ public class ViewMinhasAtividades {
 		frmMinhasAtividades = new JFrame();
 		frmMinhasAtividades.setTitle("Minhas Atividades");
 		frmMinhasAtividades.setBounds(100, 100, 450, 300);
-		frmMinhasAtividades.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMinhasAtividades.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JButton btnStatus = new JButton("Status");
 		btnStatus.setName("btnStatus");
