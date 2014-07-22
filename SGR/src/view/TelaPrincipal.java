@@ -95,6 +95,7 @@ public class TelaPrincipal extends JFrame{
 		
 		ActionListener abrirCancelarAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				viewCancelarAtividade = new ViewCancelarAtividade();			
 			}
 		};
@@ -208,8 +209,5 @@ public class TelaPrincipal extends JFrame{
 		else if (usuario instanceof Professor) {
 			inicializeProfessor();
 		}
-
 	}
-	
-	
 }

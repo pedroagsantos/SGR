@@ -104,8 +104,6 @@ public class ViewCancelarAtividade {
 				.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
 		);
 		
-		//TODO Popular a lista dinamicamente;
-		
 		list = new JList<Atividade>();
 		
 		List<Atividade> atividades = controleAtividade.recuperarAtividades(Status.PENDENTE);		
@@ -122,7 +120,6 @@ public class ViewCancelarAtividade {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				//TODO Seria interessante passar o controle como parametro, afim de usa-lo no listener dos botoes;
 				if(atividadesArray.length > 0) {
 					
 					Atividade atividade = (Atividade) list.getSelectedValue();
@@ -139,7 +136,7 @@ public class ViewCancelarAtividade {
 		btnFechar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+			
 				frame.dispose();
 			}
 		});
@@ -190,7 +187,6 @@ public class ViewCancelarAtividade {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
 		);
-	
 		
 		list = new JList<Atividade>();
 		
@@ -214,6 +210,8 @@ public class ViewCancelarAtividade {
 					
 					viewDecisaoCancelarAtividade = new ViewDecisaoCancelarAtividade(atividade);
 				}
+					
+		
 			}
 		});
 		
@@ -224,7 +222,6 @@ public class ViewCancelarAtividade {
 		btnFechar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
 				frame.dispose();
 			}
 		});
