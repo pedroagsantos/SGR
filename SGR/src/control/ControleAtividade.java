@@ -80,6 +80,12 @@ public class ControleAtividade {
 
 		return depto.recuperarAtividades(status);
 	}
+	
+	public List<Atividade> recuperarAtividades(Status status, Professor professorResponsavel) {
+
+		
+		return depto.recuperarAtividades(status, professorResponsavel);
+	}
 
 	public List<Atividade> recuperarAtividades() {
 
@@ -104,7 +110,7 @@ public class ControleAtividade {
 	public void cancelarAtividade(Atividade atividade) {
 
 		if (atividade.recuperarStatus() == Status.APROVADA)
-			cancelarAlocacao(atividade);
+			this.cancelarAlocacao(atividade);
 		else
 			atividade.modificarStatus(Status.CANCELADA);
 

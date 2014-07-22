@@ -129,8 +129,6 @@ public class ViewAvaliarAtividadesPendentes {
 					
 					janelaDeDecisao = new ViewDecisaoAtividadesPendentes(atividade);
 				}
-					
-		
 			}
 		});
 		

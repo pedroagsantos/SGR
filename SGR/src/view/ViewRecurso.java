@@ -40,28 +40,11 @@ public class ViewRecurso {
 	private JComboBox<TipoRecurso> tipoRecurso;
 	private JPanel panel;
 	
-	
 	private ControleInstitucional controleInstitucional;
 	private Recurso recurso;
 	private TipoRecurso tRecurso;
 	
 	private JButton btnBuscar;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewProf window = new ViewProf();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the application.
@@ -177,19 +160,18 @@ public class ViewRecurso {
 				descricao.setText(recurso.recuperarDescricao());
 				
 				tabbedPane.setSelectedComponent(panel);
-				
-				
-				
+					
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-
+				// TODO Auto-generated method stub
+				
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
+				// TODO Auto-generated method stub
 				
 			}
 

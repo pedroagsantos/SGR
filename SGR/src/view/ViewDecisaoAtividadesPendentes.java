@@ -1,21 +1,12 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JTextPane;
-
-import java.awt.BorderLayout;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
 import control.ControleAtividade;
 import model.Atividade;
 
@@ -99,7 +90,6 @@ public class ViewDecisaoAtividadesPendentes {
 			public void mouseClicked(MouseEvent arg0) {
 				
 				controleAtividade.aprovarAtividade(atividade);
-				//JOptionPane.showMessageDialog(null, "Atividade Aceita!");
 				
 			}
 		});
@@ -111,7 +101,6 @@ public class ViewDecisaoAtividadesPendentes {
 			public void mouseClicked(MouseEvent arg0) {
 				
 				controleAtividade.reprovarAtividade(atividade);
-				//JOptionPane.showMessageDialog(null, "Atividade Recusada!");
 				
 			}
 		});
