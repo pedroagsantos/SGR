@@ -1,9 +1,13 @@
 package control;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import model.Departamento;
 import model.Professor;
+import model.Recurso;
 import model.Tecnico;
 import model.TipoRecurso;
 import model.Usuario;
@@ -15,6 +19,7 @@ public class ControleInstitucional {
 	public void inserirProfessor(String nome, String siape, String email, String telefone, Departamento dept) {
 		Professor professor = new Professor(nome, siape, email, telefone, dept);
 		depto.inserirProfessor(professor);
+		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 	}
 
 	public boolean alterar(Professor professor) {
@@ -24,6 +29,7 @@ public class ControleInstitucional {
 	public void inserirTecnico(String nome, String siape, String email, String telefone, Departamento dept) {
 		Tecnico tecnico = new Tecnico(nome, siape, email, telefone, dept);
 		depto.inserirTecnico(tecnico);
+		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 
 	}
 
@@ -36,6 +42,7 @@ public class ControleInstitucional {
 
 	public void inserir(TipoRecurso tp) {
 		depto.inserirTipoRecurso(tp);
+		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 
 	}
 
@@ -59,5 +66,20 @@ public class ControleInstitucional {
 		return depto.alteraTipoRecurso(tipoRecurso);
 	}
 
-	
+	public List<Recurso> buscarRecurso(String descricao){
+		List<Recurso> retorno = new ArrayList<Recurso>();
+		if(descricao.equals("") || descricao == null)
+			for (TipoRecurso tipoRec : depto.listarTipoRecurso(new TipoRecurso(null))) {
+				retorno.addAll(tipoRec.listarRecursos());
+			}
+		else{
+			for (TipoRecurso tipoRec : depto.listarTipoRecurso(new TipoRecurso(null))) {
+				for (Recurso recurso : tipoRec.listarRecursos()) {
+					if(recurso.recuperarDescricao().indexOf(descricao) > -1)
+						retorno.add(recurso);
+				}
+			}
+		}
+		return retorno;
+	}
 }

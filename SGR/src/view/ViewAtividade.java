@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,10 +14,13 @@ import java.util.Map.Entry;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import model.Atividade;
 import model.Intervalo;
@@ -40,6 +43,8 @@ public class ViewAtividade {
 	private JComboBox<TipoRecurso> tipoRecursoCombo;
 	private JList<Recurso> recursoJlist;
 	private JList<Recurso> recursoEscolhido;
+	private JFormattedTextField dataTextField;
+	
 	
 	private ControleInstitucional controleInstitucional;
 	private ControleAtividade controleAtividade;
@@ -53,15 +58,22 @@ public class ViewAtividade {
 
 	/**
 	 * Create the application.
+	 * @throws ParseException 
 	 */
 	public ViewAtividade() {
-		initialize();
+		try {
+			initialize();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws ParseException 
 	 */
-	private void initialize() {
+	private void initialize() throws ParseException {
 		
 		controleInstitucional = new ControleInstitucional();
 		controleAtividade = new ControleAtividade();
@@ -153,12 +165,21 @@ public class ViewAtividade {
 				Tecnico tec = null;
 				if(usr instanceof Tecnico)
 					tec = (Tecnico)usr;
-				controleAtividade.inserir(codigo.getText(), (Professor)professorCombo.getSelectedItem() , tec, recursosSelecionados.values(), (Intervalo)intervaloCombo.getSelectedItem() , Status.PENDENTE);
-				
+				controleAtividade.inserir(codigo.getText(), (Professor)professorCombo.getSelectedItem() , tec, recursosSelecionados.values(), (Intervalo)intervaloCombo.getSelectedItem() , Status.PENDENTE, dataTextField.getText());
 			}
 		};
 		
 		/*********************************************************/
+		
+		JLabel lblData = new JLabel("Data:");
+		frame.getContentPane().add(lblData, "cell 0 5,alignx trailing");
+		
+		MaskFormatter mascara = new MaskFormatter("##/##/####");
+		mascara.setPlaceholderCharacter(' ');
+		dataTextField = new JFormattedTextField(mascara);
+		
+		dataTextField.setColumns(3);
+		frame.getContentPane().add(dataTextField, "cell 1 5,growx");
 		
 		recursoEscolhido = new JList<Recurso>();
 		//recursoEscolhido.setListData(recursoArray);

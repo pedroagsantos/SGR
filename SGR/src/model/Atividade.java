@@ -13,8 +13,9 @@ public class Atividade {
     private Intervalo intervalo;
     private String codigo;
     private Status status;
+    private String data;
     
-    public Atividade(String codigo, Professor prof, Tecnico tec, List<Recurso> recursos, Intervalo intervalo, Status status) {
+    public Atividade(String codigo, Professor prof, Tecnico tec, List<Recurso> recursos, Intervalo intervalo, Status status, String data) {
 		// TODO Auto-generated constructor stub
     	this.professorResponsavel = (Professor) prof;
     	this.tecnicoResponsavel = tec;
@@ -25,6 +26,7 @@ public class Atividade {
     	this.intervalo = intervalo;
     	this.codigo = codigo;
     	this.status = status;
+    	this.data = data;
 	}
 
     public Status recuperarStatus() {
@@ -73,34 +75,37 @@ public class Atividade {
     	for (Recurso recurso : hmRecurso.values())
     		sb.append("Cod -> " + recurso.recuperarPatrimonio() + " " + recurso.recuperarDescricao() + "\n");
 
-    	sb.append("Intervalo : " + intervalo);
+    	sb.append("Intervalo : " + intervalo + "\n");
+    	sb.append("Data: " + data);
     	
     	return sb.toString();
     }
     
-    public String toStringAtividade() {
-    	// TODO Auto-generated method stub
-    	
-    	StringBuilder sb =  new StringBuilder();
-    	
-    	sb.append("Codigo da Atividade: " + codigo + "\n");
-    	sb.append("Professor Responsavel: " + professorResponsavel + "\n");
-    	sb.append("Professor Tecnico: " + tecnicoResponsavel + "\n");
-    	sb.append("Recurso(s) Alocado(s): " + "\n");
-    	
-    	for (Recurso recurso : hmRecurso.values())
-    		sb.append("Cod -> " + recurso.recuperarPatrimonio() + " " + recurso.recuperarDescricao() + "\n");
+    
+    
+    public String recuperaData() {
+		return data;
+	}
 
-    	sb.append("Intervalo : " + intervalo);
-    	
-    	return sb.toString();
-    }
-    
-    @Override
+	public void modificaData(String data) {
+		this.data = data;
+	}
+	
+	
+	public Intervalo recuperaIntervalo() {
+		return intervalo;
+	}
+
+	public void modificaIntervalo(Intervalo intervalo) {
+		this.intervalo = intervalo;
+	}
+
+	@Override
     public String toString() {
     	// TODO Auto-generated method stub
     	return codigo + " " +
     			professorResponsavel + " " +
-    			intervalo;
+    			intervalo + " " +
+    			data;
     }
 }

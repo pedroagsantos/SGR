@@ -26,8 +26,9 @@ public class TipoRecurso {
     }
 
 
-    public void inserir(Recurso recurso){
+    public void inserirRecurso(String patrimonio, String descricao, Status status){
 
+    	Recurso recurso = new Recurso(patrimonio, descricao, status);
         recursos.add(recurso);
 
     }
@@ -38,6 +39,19 @@ public class TipoRecurso {
 
     }
 
+    public List<Recurso> buscarRecurso(String descricao) {
+    	ArrayList<Recurso> listaRetorno = new ArrayList<>();
+    	if(descricao.equals("") || descricao == null)
+    		listaRetorno.addAll(recursos);
+    	else{
+	    	for (Recurso recurso : recursos) {
+				if(recurso.recuperarDescricao().indexOf(descricao) > -1){
+					listaRetorno.add(recurso);
+				}
+			}
+    	}
+    	return listaRetorno;
+    }
     public List<Recurso> listarRecursos(){
 
         return recursos;

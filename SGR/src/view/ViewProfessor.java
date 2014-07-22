@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -33,7 +35,7 @@ public class ViewProfessor {
 	private JTextField email;
 	private JTextField telefone;
 	private JTextField siapeBusca;
-	private JTable tabela;
+	private JList<Professor> tabela;
 	private JComboBox<Departamento> departamento;
 	private JPanel panel;
 	
@@ -117,8 +119,6 @@ public class ViewProfessor {
 		panel.add(lblDepartamento, "cell 0 4,alignx trailing");
 		
 		
-		//Departamento[] vetorDepartamento;
-		
 		Departamento[] vetorDepartamento = new Departamento[Universidade.recuperaInstancia().recuperaDepartamentos().toArray().length];
 		int cont = 0;
 		for(Object depto : Universidade.recuperaInstancia().recuperaDepartamentos().toArray()){
@@ -152,7 +152,7 @@ public class ViewProfessor {
 				telefone.setText(null);
 				departamento.setSelectedIndex(0);
 				siapeBusca.setText(null);
-				tabela.setValueAt(null, 0, 0);
+				tabela.setListData(new Professor[1]);
 				
 			}
 		};
@@ -161,12 +161,14 @@ public class ViewProfessor {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
 				List<Usuario> listaProfessor = controleInstitucional.buscarProfessor(siape.getText());
+				Professor[] listData = new Professor[listaProfessor.size()];
 				int cont = 0;
-				for (Usuario professor : listaProfessor) {
-					tabela.setValueAt(professor, cont, cont);
+				for (Usuario usr : listaProfessor) {
+					Professor prof = (Professor)usr;
+					listData[cont] = prof;
 					cont++;
 				}
-				
+				tabela.setListData(listData);
 			}
 		};
 		
@@ -185,7 +187,7 @@ public class ViewProfessor {
 		
 		MouseListener recuperaProfessor = new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
-				professor = (Professor) tabela.getValueAt(0, 0);
+				professor = tabela.getSelectedValue();
 				nome.setText(professor.recuperarNome());
 				siape.setText(professor.recuperarSiape());
 				email.setText(professor.recuperarEmail());
@@ -254,17 +256,7 @@ public class ViewProfessor {
 		panel_1.add(btnBuscar, "cell 1 1");
 		btnBuscar.addActionListener(buscarProfessor);
 		
-		tabela = new JTable();
-		tabela.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-			},
-			new String[] {
-				"Professor"
-			}
-		));
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(150);
-		panel_1.add(tabela, "cell 1 2,grow");
+		tabela = new JList<Professor>();
 		tabela.addMouseListener(recuperaProfessor);
 	}
 
