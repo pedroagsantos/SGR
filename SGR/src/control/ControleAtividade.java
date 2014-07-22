@@ -81,10 +81,10 @@ public class ControleAtividade {
 		return depto.recuperarAtividades(status);
 	}
 	
-	public List<Atividade> recuperarAtividades(Status status, Professor professorResponsavel) {
+	public List<Atividade> recuperarAtividades(Status status, Usuario usuarioResponsavel) {
 
 		
-		return depto.recuperarAtividades(status, professorResponsavel);
+		return depto.recuperarAtividades(status, usuarioResponsavel);
 	}
 
 	public List<Atividade> recuperarAtividades() {

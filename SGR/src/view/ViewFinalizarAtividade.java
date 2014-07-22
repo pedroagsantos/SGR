@@ -33,7 +33,6 @@ public class ViewFinalizarAtividade {
 
 	private JFrame frmAtividades;
 	private JList list;
-	private ViewDesalocarRecurso janelaDeRecursos;
 	private JButton btnFechar;
 	private JButton btnFinalizar;
 	/**

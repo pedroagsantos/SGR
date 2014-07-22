@@ -1,4 +1,6 @@
 package model;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,9 +31,15 @@ public class Atividade {
     	this.data = data;
 	}
     
-    public Professor recuperarProfessorResponsavel() {
+    public Boolean verificarUsuarioResponsavel(Usuario usuarioResponsavel) {
     	
-    	return professorResponsavel;
+    	if ((Usuario) this.professorResponsavel == usuarioResponsavel ||
+    		(Usuario) this.tecnicoResponsavel == usuarioResponsavel) {
+    		
+    		return true;
+    	}
+    	
+    	return false;
     }
 
     public Status recuperarStatus() {
@@ -59,6 +67,19 @@ public class Atividade {
     	for (Recurso recurso : hmRecurso.values())
 			recurso.modificarStatusRecurso(Status.ALOCADO);
     	
+    }
+    
+    public Collection<Recurso> recuperarRecursosAtividade() {
+    	return hmRecurso.values();
+    }
+    
+    public void desalocarRecurso (Recurso recurso) {
+    	
+    	Recurso recursoAtividade = hmRecurso.get(recurso.recuperarPatrimonio());
+   
+    	recursoAtividade.modificarStatusRecurso(Status.DISPONIVEL);
+   
+    	hmRecurso.remove(recursoAtividade.recuperarPatrimonio());
     }
     
     public void desalocarRecursos() {

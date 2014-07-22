@@ -105,10 +105,10 @@ public class ViewCancelarAtividade {
 		);
 		
 		list = new JList<Atividade>();
+
+		List<Atividade> atividades = controleAtividade.recuperarAtividades(Status.APROVADA, usuario);
 		
-		List<Atividade> atividades = controleAtividade.recuperarAtividades(Status.PENDENTE);		
 		atividadesArray = new Atividade[atividades.size()];
-		
 		
 		for(int i = 0; i < atividadesArray.length; i++)
 			atividadesArray[i] = (Atividade) atividades.get(i);

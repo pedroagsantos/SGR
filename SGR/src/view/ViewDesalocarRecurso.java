@@ -18,52 +18,49 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import control.ControleAtividade;
+import model.Atividade;
+import model.Professor;
+import model.Recurso;
+import model.Status;
+import model.Tecnico;
+import model.Usuario;
 
 
 public class ViewDesalocarRecurso {
-	
-	/*************************************/
-	//Caso de Uso: Desalocar Recurso
-	/************************************/
 
 	private JFrame frame;
-	private JList list;
-	private ViewDecisaoAlocacao janelaDeDecisao;
+	private JList<Atividade> list;
+	private ViewDecisaoDesalocarRecurso viewDecisaoDesalocarRecurso; 
 	private JButton btnFechar;
-	private JButton btnDesalocar;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewDesalocarRecurso window = new ViewDesalocarRecurso();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private ControleAtividade controleAtividade;
+	private Atividade[] atividadesArray;
+	private Usuario usuario;
+	
 
-	/**
-	 * Create the application.
-	 */
 	public ViewDesalocarRecurso() {
-		initialize();
-		frame.setVisible(true);
+	
+		initializeUsuario();
+		
+		this.frame.setVisible(true);	
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initializeUsuario() {
+		
+		controleAtividade =  new ControleAtividade();
+		
+		usuario = Usuario.recuperaUsuarioLogado();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 480);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -79,31 +76,43 @@ public class ViewDesalocarRecurso {
 				.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
 		);
 		
-		//TODO Popular a lista dinamicamente;
+		list = new JList<Atividade>();
 		
-		list = new JList();
+		List<Atividade> atividades = controleAtividade.recuperarAtividades(Status.EM_ANDAMENTO, usuario);		
+		atividades.addAll(controleAtividade.recuperarAtividades(Status.APROVADA, usuario));
 		
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Clique 1", "Clique 2"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
+		atividadesArray = new Atividade[atividades.size()];
+		
+		for(int i = 0; i < atividadesArray.length; i++)
+			atividadesArray[i] = (Atividade) atividades.get(i);
+
+		list.setListData(atividadesArray);
+		
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				if(atividadesArray.length > 0) {
+					
+					Atividade atividade = (Atividade) list.getSelectedValue();
+					
+					viewDecisaoDesalocarRecurso = new ViewDecisaoDesalocarRecurso(atividade);
+				}
 			}
 		});
-				
-		JLabel lblAtividadesPendendentes = new JLabel("Recursos Alocados:");
+		
+		JLabel lblAtividadesPendendentes = new JLabel("Atividades com Recursos Alocados:");
 		
 		btnFechar = new JButton("Fechar");
 		
-		btnDesalocar = new JButton("Desalocar");
-		btnDesalocar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*JOptionPane.showConfirmDialog(null, "Recurso desalocado");*/
-				JOptionPane.showMessageDialog(null, "Recurso desalocado");
+		btnFechar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+	
+				frame.dispose();
 			}
 		});
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -111,24 +120,19 @@ public class ViewDesalocarRecurso {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(list, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(btnDesalocar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnFechar))
-						.addComponent(lblAtividadesPendendentes))
+						.addComponent(lblAtividadesPendendentes)
+						.addComponent(btnFechar, Alignment.TRAILING))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
+			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(38, Short.MAX_VALUE)
+					.addGap(23)
 					.addComponent(lblAtividadesPendendentes)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 338, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnFechar)
-						.addComponent(btnDesalocar))
+					.addComponent(btnFechar)
 					.addGap(7))
 		);
 		panel.setLayout(gl_panel);

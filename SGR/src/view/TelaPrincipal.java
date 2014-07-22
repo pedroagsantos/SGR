@@ -27,6 +27,7 @@ public class TelaPrincipal extends JFrame{
 	private ViewAvaliarAtividadesPendentes viewAtividadesPendentes; 
 	private ViewCancelarAtividade viewCancelarAtividade;
 	private ViewRecurso viewRecurso;
+	private ViewDesalocarRecurso viewDesalocarRecurso;
 	private JMenuBar menuBar;
 	private JMenu mnCadastro;
 	private JMenu mnSolicitao;
@@ -40,6 +41,7 @@ public class TelaPrincipal extends JFrame{
 	private JMenuItem mntmRecurso;
 	private JMenuItem mntmNovaSolicitao;
 	private JMenuItem mntmBuscarAtividade;
+	private JMenuItem mntmDesalocarRecurso;
 	
 
 	private void inicializeTecnico() {
@@ -100,6 +102,13 @@ public class TelaPrincipal extends JFrame{
 			}
 		};
 		
+		ActionListener abrirDesalocarRecurso = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				viewDesalocarRecurso = new ViewDesalocarRecurso();			
+			}
+		};
+		
 		setSize(800,600);
 		getContentPane().setLayout(new MigLayout("", "[]", "[]"));
 		
@@ -146,6 +155,10 @@ public class TelaPrincipal extends JFrame{
 		mntmAvaliarAtividadePendente = new JMenuItem("Avaliar Atividades Pendentes");
 		mnGerenciarAtividades.add(mntmAvaliarAtividadePendente);
 		mntmAvaliarAtividadePendente.addActionListener(abrirAvaliarAtividadesPendentes);
+		
+		mntmDesalocarRecurso = new JMenuItem("Desalocar Recurso");
+		mnGerenciarAtividades.add(mntmDesalocarRecurso);
+		mntmDesalocarRecurso.addActionListener(abrirDesalocarRecurso);
 		
 	}
 	

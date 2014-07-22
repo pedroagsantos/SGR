@@ -163,15 +163,14 @@ public class Departamento {
         return listaRetorno;
     }
     
-    public List<Atividade> recuperarAtividades(Status status, Professor professorResponsavel){
+    public List<Atividade> recuperarAtividades(Status status, Usuario usuarioResponsavel){
 
         ArrayList<Atividade> listaRetorno = new ArrayList<Atividade>();
 
 		for (Atividade atividade : atividades) {
 			
 			if(atividade.recuperarStatus() == status && 
-			atividade.recuperarProfessorResponsavel() == professorResponsavel)
-				
+			atividade.verificarUsuarioResponsavel(usuarioResponsavel))
 				listaRetorno.add(atividade);
 		}
 

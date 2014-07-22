@@ -100,8 +100,8 @@ public class ViewTecnico {
 		JLabel lblDepartamento = new JLabel("Departamento");
 		panel.add(lblDepartamento, "cell 0 4,alignx trailing");
 		
-		
 		Departamento[] vetorDepartamento = new Departamento[Universidade.recuperaInstancia().recuperaDepartamentos().toArray().length];
+		
 		int cont = 0;
 		for(Object depto : Universidade.recuperaInstancia().recuperaDepartamentos().toArray()){
 			Departamento departamento = (Departamento) depto;
