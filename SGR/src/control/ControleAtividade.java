@@ -115,6 +115,14 @@ public class ControleAtividade {
 			atividade.modificarStatus(Status.CANCELADA);
 
 	}
+	
+	public void finalizarAtividade(Atividade atividade) {
+		
+		atividade.desalocarRecursos();
+		
+		atividade.modificarStatus(Status.FINALIZADA);
+		
+	}
 
 	public void cancelarAlocacao(Atividade atividade) {
 

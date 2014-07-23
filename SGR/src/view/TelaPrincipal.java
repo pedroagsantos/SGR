@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import model.Professor;
 import model.Tecnico;
@@ -28,11 +31,12 @@ public class TelaPrincipal extends JFrame{
 	private ViewCancelarAtividade viewCancelarAtividade;
 	private ViewRecurso viewRecurso;
 	private ViewDesalocarRecurso viewDesalocarRecurso;
+	private ViewFinalizarAtividade viewFinalizarAtividade;
 	private JMenuBar menuBar;
 	private JMenu mnCadastro;
 	private JMenu mnSolicitao;
 	private JMenu mnGerenciarAtividades;
-	//private JMenuItem mntmMinhasAtividades;
+	private JMenu mnSair;
 	private JMenuItem mntmCancelarAtividade;
 	private JMenuItem mntmAvaliarAtividadePendente;
 	private JMenuItem mntmProfessor;
@@ -42,6 +46,7 @@ public class TelaPrincipal extends JFrame{
 	private JMenuItem mntmNovaSolicitao;
 	private JMenuItem mntmBuscarAtividade;
 	private JMenuItem mntmDesalocarRecurso;
+	private JMenuItem mntmFinalizarAtividade;
 	
 
 	private void inicializeTecnico() {
@@ -109,6 +114,36 @@ public class TelaPrincipal extends JFrame{
 			}
 		};
 		
+		ActionListener abrirFinalizarAtividade = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				viewFinalizarAtividade = new ViewFinalizarAtividade();		
+			}
+		};
+		
+		MenuListener efetuarLogout = new MenuListener() {
+			
+			@Override
+			public void menuSelected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				Main.main(null);				
+				dispose();
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+						
+		};
+		
 		setSize(800,600);
 		getContentPane().setLayout(new MigLayout("", "[]", "[]"));
 		
@@ -160,6 +195,14 @@ public class TelaPrincipal extends JFrame{
 		mnGerenciarAtividades.add(mntmDesalocarRecurso);
 		mntmDesalocarRecurso.addActionListener(abrirDesalocarRecurso);
 		
+		mntmFinalizarAtividade = new JMenuItem("Finalizar Atividade");
+		mnGerenciarAtividades.add(mntmFinalizarAtividade);
+		mntmFinalizarAtividade.addActionListener(abrirFinalizarAtividade);
+		
+		mnSair = new JMenu("Sair");		
+		mnSair.addMenuListener(efetuarLogout);
+		menuBar.add(mnSair);
+		
 	}
 	
 	private void inicializeProfessor() {
@@ -183,6 +226,29 @@ public class TelaPrincipal extends JFrame{
 				viewAtividadesPendentes = new ViewAvaliarAtividadesPendentes();
 				
 			}
+		};
+		
+		MenuListener efetuarLogout = new MenuListener() {
+			
+			@Override
+			public void menuSelected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				Main.main(null);				
+				dispose();
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+						
 		};
 		
 		setSize(800,600);
@@ -209,7 +275,9 @@ public class TelaPrincipal extends JFrame{
 		mnGerenciarAtividades.add(mntmCancelarAtividade);
 		mntmCancelarAtividade.addActionListener(abrirCancelarAtividade);
 		
-				
+		mnSair = new JMenu("Sair");		
+		mnSair.addMenuListener(efetuarLogout);
+		menuBar.add(mnSair);		
 	}
 	
 	public TelaPrincipal() {

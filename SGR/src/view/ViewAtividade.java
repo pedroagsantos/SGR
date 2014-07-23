@@ -181,7 +181,7 @@ public class ViewAtividade {
 		frame.getContentPane().add(dataTextField, "cell 1 5,growx");
 		
 		recursoEscolhido = new JList<Recurso>();
-		//recursoEscolhido.setListData(recursoArray);
+
 		frame.getContentPane().add(recursoEscolhido, "cell 1 8,growx");
 		
 		JButton btnAdicionarRecurso = new JButton("Adicionar Recurso");
