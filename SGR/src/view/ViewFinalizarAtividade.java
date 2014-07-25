@@ -102,7 +102,7 @@ public class ViewFinalizarAtividade {
 		
 		list = new JList();
 		
-		List<Atividade> atividadesPendentes = controleAtividade.recuperarAtividades(Status.APROVADA, usuario);		
+		List<Atividade> atividadesPendentes = controleAtividade.recuperarAtividades(Status.EM_ANDAMENTO, usuario);		
 		atividadesEmAndamentoArray = new Atividade[atividadesPendentes.size()];
 		
 		

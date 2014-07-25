@@ -19,7 +19,7 @@ public class ControleInstitucional {
 	public void inserirProfessor(String nome, String siape, String email, String telefone, Departamento dept) {
 		Professor professor = new Professor(nome, siape, email, telefone, dept);
 		depto.inserirProfessor(professor);
-		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
+		JOptionPane.showMessageDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 	}
 
 	public boolean alterar(Professor professor) {
@@ -29,7 +29,7 @@ public class ControleInstitucional {
 	public void inserirTecnico(String nome, String siape, String email, String telefone, Departamento dept) {
 		Tecnico tecnico = new Tecnico(nome, siape, email, telefone, dept);
 		depto.inserirTecnico(tecnico);
-		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
+		JOptionPane.showMessageDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 
 	}
 
@@ -42,7 +42,7 @@ public class ControleInstitucional {
 
 	public void inserir(TipoRecurso tp) {
 		depto.inserirTipoRecurso(tp);
-		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
+		JOptionPane.showMessageDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 
 	}
 

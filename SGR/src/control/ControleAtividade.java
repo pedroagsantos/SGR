@@ -1,10 +1,16 @@
 package control;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import org.joda.time.DateTime;
 
 import model.Atividade;
 import model.Departamento;
@@ -20,23 +26,23 @@ public class ControleAtividade {
 
 	private Departamento depto = Usuario.recuperaUsuarioLogado().recuperarDepartamento();
 
-	public void inserir(String codigo, Professor prof, Tecnico tec, Collection<Recurso> recursosEscolhidos, Intervalo intervalo, Status status, String data) {
+	public void inserir(String codigo, Professor prof, Tecnico tec, Collection<Recurso> recursosEscolhidos, Intervalo intervalo, Status status, DateTime date) {
 		Atividade nova;	
 
 		List<Recurso> recursos = new ArrayList<>();
 		recursos.addAll(recursosEscolhidos);
 
 		if(tec != null) {
-			nova = new Atividade(codigo, prof, tec, recursos, intervalo, Status.PENDENTE, data);
+			nova = new Atividade(codigo, prof, tec, recursos, intervalo, Status.PENDENTE, date);
 			if(!avaliaAtividade(nova))
 				return;
 			else
 				aprovarAtividade(nova);
 		}
 		else
-			nova = new Atividade(codigo, prof, tec, recursos, intervalo, Status.PENDENTE, data);
+			nova = new Atividade(codigo, prof, tec, recursos, intervalo, Status.PENDENTE, date);
 		depto.inserirAtividade(nova);
-		JOptionPane.showConfirmDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
+		JOptionPane.showMessageDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private boolean avaliaAtividade(Atividade nova) {
@@ -73,22 +79,72 @@ public class ControleAtividade {
 
 		atividade.atribuirTecnicoResponsavel(tecnicoResponsavel);
 		atividade.alocarRecursos();
-		atividade.modificarStatus(Status.APROVADA);	
+		atividade.modificarStatus(Status.APROVADA);
+		JOptionPane.showMessageDialog(null, "Atividade Aprovada", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public List<Atividade> recuperarAtividades(Status status) {
-
+			verificaEmAndamento();
 		return depto.recuperarAtividades(status);
 	}
 	
+	private void verificaEmAndamento() {
+		
+		DateTime agora = new DateTime(DateTime.now());
+		
+		for(Atividade ativ: depto.recuperarAtividades())
+				if(mesmaDataCorrente(agora, ativ))
+					ativ.modificarStatus(Status.EM_ANDAMENTO);
+	}
+	
+	private Boolean mesmaDataCorrente(DateTime agora, Atividade ativ) {
+		
+		DateTime dataAtividade = ativ.recuperaData();
+		
+		int horaDoDia = agora.getHourOfDay();
+		
+		if (agora.getYear() !=  dataAtividade.getYear())
+			return false;
+		if (agora.getMonthOfYear() !=  dataAtividade.getMonthOfYear())
+			return false;
+		if (agora.getWeekOfWeekyear() !=  dataAtividade.getWeekOfWeekyear())
+			return false;
+		if (agora.getDayOfWeek() != dataAtividade.getDayOfWeek())
+			return false;
+		if (ativ.recuperaIntervalo().horaIntervalo() >= horaDoDia && 
+			horaDoDia <=  ativ.recuperaIntervalo().horaIntervalo()+2)
+			return false;
+		
+		return true;
+			
+	}
+
+	/*private void verificaEmAndamento() {
+		Date agora = new Date();
+		SimpleDateFormat sdfmt = new SimpleDateFormat("ddMMyyyyHHmm");
+		String agoraStr = sdfmt.format(agora);
+		for(Atividade ativ: depto.recuperarAtividades()){
+			String dataAtividadeStr = ativ.recuperaData().replaceAll("/", "") + ativ.recuperaIntervalo().toString().split("-")[0].trim().replaceAll(":", "");
+			try {
+				Date dataAtividade = sdfmt.parse(dataAtividadeStr);
+				if(dataAtividade.compareTo(agora) > 0)
+					ativ.modificarStatus(Status.EM_ANDAMENTO);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}*/
+	
 	public List<Atividade> recuperarAtividades(Status status, Usuario usuarioResponsavel) {
 
-		
+		verificaEmAndamento();
 		return depto.recuperarAtividades(status, usuarioResponsavel);
 	}
 
 	public List<Atividade> recuperarAtividades() {
 
+		verificaEmAndamento();
 		return depto.recuperarAtividades();
 	}
 
@@ -121,7 +177,7 @@ public class ControleAtividade {
 		atividade.desalocarRecursos();
 		
 		atividade.modificarStatus(Status.FINALIZADA);
-		
+		JOptionPane.showMessageDialog(null, "Atividade Finalizada", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void cancelarAlocacao(Atividade atividade) {
@@ -129,6 +185,7 @@ public class ControleAtividade {
 		atividade.desalocarRecursos();
 
 		atividade.modificarStatus(Status.CANCELADA);
+		JOptionPane.showMessageDialog(null, "Atividade Cancelada", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 

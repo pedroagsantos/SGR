@@ -1,8 +1,12 @@
 package model;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import org.joda.time.DateTime;
+import org.joda.time.JodaTimePermission;
 
 /**
  * Created by stark on 06/06/14.
@@ -15,9 +19,9 @@ public class Atividade {
     private Intervalo intervalo;
     private String codigo;
     private Status status;
-    private String data;
+    private DateTime data;
     
-    public Atividade(String codigo, Professor prof, Tecnico tec, List<Recurso> recursos, Intervalo intervalo, Status status, String data) {
+    public Atividade(String codigo, Professor prof, Tecnico tec, List<Recurso> recursos, Intervalo intervalo, Status status, DateTime data) {
 		// TODO Auto-generated constructor stub
     	this.professorResponsavel = (Professor) prof;
     	this.tecnicoResponsavel = tec;
@@ -109,11 +113,11 @@ public class Atividade {
     
     
     
-    public String recuperaData() {
+    public DateTime recuperaData() {
 		return data;
 	}
 
-	public void modificaData(String data) {
+	public void modificaData(DateTime data) {
 		this.data = data;
 	}
 	

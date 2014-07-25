@@ -5,10 +5,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
+
+import javafx.scene.control.DatePicker;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -20,6 +24,10 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+import org.joda.time.DateTime;
+
+import com.toedter.calendar.JCalendar;
+
 import model.Atividade;
 import model.Intervalo;
 import model.Professor;
@@ -29,6 +37,7 @@ import model.Tecnico;
 import model.TipoRecurso;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
+import net.sourceforge.jdatepicker.JDatePicker;
 import control.ControleAtividade;
 import control.ControleInstitucional;
 
@@ -43,7 +52,8 @@ public class ViewAtividade {
 	private JList<Recurso> recursoJlist;
 	private JList<Recurso> recursoEscolhido;
 	private JFormattedTextField dataTextField;
-	
+	private JCalendar picker;
+	private DateTime data;
 	
 	private ControleInstitucional controleInstitucional;
 	private ControleAtividade controleAtividade;
@@ -164,7 +174,10 @@ public class ViewAtividade {
 				Tecnico tec = null;
 				if(usr instanceof Tecnico)
 					tec = (Tecnico)usr;
-				controleAtividade.inserir(codigo.getText(), (Professor)professorCombo.getSelectedItem() , tec, recursosSelecionados.values(), (Intervalo)intervaloCombo.getSelectedItem() , Status.PENDENTE, dataTextField.getText());
+				
+				data = new DateTime(picker.getCalendar());
+				
+				controleAtividade.inserir(codigo.getText(), (Professor)professorCombo.getSelectedItem() , tec, recursosSelecionados.values(), (Intervalo)intervaloCombo.getSelectedItem() , Status.PENDENTE, data);
 			}
 		};
 		
@@ -177,8 +190,10 @@ public class ViewAtividade {
 		mascara.setPlaceholderCharacter(' ');
 		dataTextField = new JFormattedTextField(mascara);
 		
+		picker = new JCalendar(Calendar.getInstance().getTime());
+		
 		dataTextField.setColumns(3);
-		frame.getContentPane().add(dataTextField, "cell 1 5,growx");
+		frame.getContentPane().add(picker, "cell 1 5,growx");
 		
 		recursoEscolhido = new JList<Recurso>();
 
