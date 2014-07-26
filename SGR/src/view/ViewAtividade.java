@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -37,7 +39,6 @@ import model.Tecnico;
 import model.TipoRecurso;
 import model.Usuario;
 import net.miginfocom.swing.MigLayout;
-import net.sourceforge.jdatepicker.JDatePicker;
 import control.ControleAtividade;
 import control.ControleInstitucional;
 
@@ -113,7 +114,7 @@ public class ViewAtividade {
 		
 		professorCombo = new JComboBox<>();
 		professorCombo.setModel(new DefaultComboBoxModel(vetorProfessor));
-		professorCombo.setEditable(true);
+		professorCombo.setEditable(false);
 		frame.getContentPane().add(professorCombo, "cell 1 1,growx");
 		
 		JLabel lblTipoDeRecurso = new JLabel("Tipo de Recurso:");
@@ -138,7 +139,7 @@ public class ViewAtividade {
 		});
 		
 		tipoRecursoCombo.setModel(new DefaultComboBoxModel(vetorTipoRecurso));
-		tipoRecursoCombo.setEditable(true);
+		tipoRecursoCombo.setEditable(false);
 		frame.getContentPane().add(tipoRecursoCombo, "cell 1 2,growx");
 		
 		/***************/
@@ -159,25 +160,38 @@ public class ViewAtividade {
 		JLabel lblIntervalo = new JLabel("Intervalo:");
 		frame.getContentPane().add(lblIntervalo, "cell 0 4,alignx trailing");
 		
-		Object[] vetorIntervalo;
-		vetorIntervalo = intervalos.values();
+		Intervalo[] vetorIntervalo = controleAtividade.recuperaViewIntervalos();
+		
 		intervaloCombo = new JComboBox<Intervalo>();
 		intervaloCombo.setModel(new DefaultComboBoxModel(vetorIntervalo));
-		intervaloCombo.setEditable(true);
+		intervaloCombo.setEditable(false);
 		frame.getContentPane().add(intervaloCombo, "cell 1 4,growx");
 		
 		/*******************************************************/
 		
 		ActionListener salvarAtividade = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario usr = Usuario.recuperaUsuarioLogado();
-				Tecnico tec = null;
-				if(usr instanceof Tecnico)
-					tec = (Tecnico)usr;
 				
-				data = new DateTime(picker.getCalendar());
-				
-				controleAtividade.inserir(codigo.getText(), (Professor)professorCombo.getSelectedItem() , tec, recursosSelecionados.values(), (Intervalo)intervaloCombo.getSelectedItem() , Status.PENDENTE, data);
+				if (recursosSelecionados.values().isEmpty())
+					JOptionPane.showMessageDialog(null, "Nenhum recurso selecionado!",
+							"Mensagem", JOptionPane.INFORMATION_MESSAGE);
+				else {
+
+					Usuario usr = Usuario.recuperaUsuarioLogado();
+					Tecnico tec = null;
+
+					if ((usr instanceof Tecnico))
+						tec = (Tecnico) usr;
+
+					data = new DateTime(picker.getCalendar());
+
+					controleAtividade.inserir(codigo.getText(),
+							(Professor) professorCombo.getSelectedItem(), tec,
+							recursosSelecionados.values(),
+							(Intervalo) intervaloCombo.getSelectedItem(),
+							Status.PENDENTE, data);
+					frame.dispose();
+				}
 			}
 		};
 		
@@ -189,8 +203,11 @@ public class ViewAtividade {
 		MaskFormatter mascara = new MaskFormatter("##/##/####");
 		mascara.setPlaceholderCharacter(' ');
 		dataTextField = new JFormattedTextField(mascara);
+		Date diaAtual = Calendar.getInstance().getTime();
 		
 		picker = new JCalendar(Calendar.getInstance().getTime());
+		
+		picker.setMinSelectableDate(diaAtual);
 		
 		dataTextField.setColumns(3);
 		frame.getContentPane().add(picker, "cell 1 5,growx");
@@ -253,5 +270,7 @@ public class ViewAtividade {
 		frame.getContentPane().add(btnSalvar, "cell 1 9");
 		btnSalvar.addActionListener(salvarAtividade);
 	}
+
+	
 
 }

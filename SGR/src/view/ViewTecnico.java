@@ -5,17 +5,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import model.Departamento;
 import model.Tecnico;
@@ -33,7 +35,7 @@ public class ViewTecnico {
 	private JTextField email;
 	private JTextField telefone;
 	private JTextField siapeBusca;
-	private JTable tabela;
+	private JList<Tecnico> tabela;
 	private JComboBox<Departamento> departamento;
 	private JPanel panel;
 	
@@ -112,15 +114,17 @@ public class ViewTecnico {
 		
 		departamento = new JComboBox<Departamento>();
 		departamento.setModel(new DefaultComboBoxModel<Departamento>(vetorDepartamento));
-		departamento.setEditable(true);
+		departamento.setEditable(false);
 		panel.add(departamento, "cell 1 4,growx");
 		
 		/*****************************************************************/
 		ActionListener salvarTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				controleInstitucional.inserirTecnico(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento)departamento.getSelectedItem());
-				
+				if(!nome.getText().isEmpty() && !siape.getText().isEmpty() && !email.getText().isEmpty())
+					controleInstitucional.inserirTecnico(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento)departamento.getSelectedItem());
+				else
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
 			}
 		};
 		
@@ -135,7 +139,7 @@ public class ViewTecnico {
 				telefone.setText(null);
 				departamento.setSelectedIndex(0);
 				siapeBusca.setText(null);
-				tabela.setValueAt(null, 0, 0);
+				tabela.setListData(new Vector());
 				
 			}
 		};
@@ -143,12 +147,21 @@ public class ViewTecnico {
 		ActionListener buscarTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
+				/*Tecnico[] listZero = new Tecnico[0];*/
+				//tabela.setListData(new Vector());
+				//tabela.setListData(new Vector());
+				
+				DefaultListModel lista = new DefaultListModel<>();
 				List<Usuario> listaTecnico = controleInstitucional.buscarTecnico(siape.getText());
-				int cont = 0;
-				for (Usuario tecnico : listaTecnico) {
-					tabela.setValueAt(tecnico, cont, cont);
-					cont++;
+				Tecnico[] listData = new Tecnico[listaTecnico.size()]; 
+				for(int i = 0; i < listData.length; i++){
+					//listData[i] = (Tecnico)listaTecnico.toArray()[i];
+					lista.addElement((Tecnico)listaTecnico.toArray()[i]);
 				}
+				
+				
+				tabela.setModel(lista);
+				
 				
 			}
 		};
@@ -156,19 +169,22 @@ public class ViewTecnico {
 		ActionListener alterarTecnico = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				tecnico.modificarNome(nome.getText());
-				//professor.modificarSiape(siape.getText());
-				tecnico.modificarEmail(email.getText());
-				tecnico.modificarTelefone(telefone.getText());
-				tecnico.modificarDepartamento((Departamento)departamento.getSelectedItem());
-				controleInstitucional.alterar(tecnico);
-				
+				if(!nome.getText().isEmpty() && !siape.getText().isEmpty() && !email.getText().isEmpty()){
+					tecnico.modificarNome(nome.getText());
+					//professor.modificarSiape(siape.getText());
+					tecnico.modificarEmail(email.getText());
+					tecnico.modificarTelefone(telefone.getText());
+					tecnico.modificarDepartamento((Departamento)departamento.getSelectedItem());
+					controleInstitucional.alterar(tecnico);	
+				} else {
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
+				}				
 			}
 		};
 		
 		MouseListener recuperaProfessor = new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
-				tecnico = (Tecnico) tabela.getValueAt(0, 0);
+				tecnico = (Tecnico) tabela.getSelectedValue();
 				nome.setText(tecnico.recuperarNome());
 				siape.setText(tecnico.recuperarSiape());
 				email.setText(tecnico.recuperarEmail());
@@ -237,16 +253,7 @@ public class ViewTecnico {
 		panel_1.add(btnBuscar, "cell 1 1");
 		btnBuscar.addActionListener(buscarTecnico);
 		
-		tabela = new JTable();
-		tabela.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-			},
-			new String[] {
-				"Professor"
-			}
-		));
-		tabela.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tabela = new JList<Tecnico>();
 		panel_1.add(tabela, "cell 1 2,grow");
 		tabela.addMouseListener(recuperaProfessor);
 	}

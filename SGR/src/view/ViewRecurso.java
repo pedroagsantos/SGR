@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -104,16 +105,19 @@ public class ViewRecurso {
 		
 		tipoRecurso = new JComboBox<TipoRecurso>();
 		tipoRecurso.setModel(new DefaultComboBoxModel<TipoRecurso>(vetorTipoRecursos));
-		tipoRecurso.setEditable(true);
+		tipoRecurso.setEditable(false);
 		panel.add(tipoRecurso, "cell 1 4,growx");
 		
 		/*****************************************************************/
 		ActionListener salvarRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				TipoRecurso tipo = (TipoRecurso)tipoRecurso.getSelectedItem();
-				tipo.inserirRecurso(patrimonio.getText(), descricao.getText(), Status.DISPONIVEL);;
-				
+				if(!patrimonio.getText().isEmpty() && !descricao.getText().isEmpty()){
+					TipoRecurso tipo = (TipoRecurso)tipoRecurso.getSelectedItem();
+					tipo.inserirRecurso(patrimonio.getText(), descricao.getText(), Status.DISPONIVEL);;	
+				}else{
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		};
 		
@@ -145,10 +149,14 @@ public class ViewRecurso {
 		
 		ActionListener alterarRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				recurso.modificarPatrimonio(patrimonio.getText());
-				recurso.modificarDescricao(descricao.getText());
-				
-				tRecurso.alterar(recurso);
+				if(!patrimonio.getText().isEmpty() && !descricao.getText().isEmpty()){
+					recurso.modificarPatrimonio(patrimonio.getText());
+					recurso.modificarDescricao(descricao.getText());
+					
+					tRecurso.alterar(recurso);
+				} else {
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		};

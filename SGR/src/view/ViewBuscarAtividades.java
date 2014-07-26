@@ -22,7 +22,7 @@ import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+@SuppressWarnings("unchecked")
 public class ViewBuscarAtividades {
 
 	private JFrame frame;
@@ -46,6 +46,7 @@ public class ViewBuscarAtividades {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		
 		controleAtividade = new ControleAtividade();
@@ -54,11 +55,13 @@ public class ViewBuscarAtividades {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setSize(452,404);
+		frame.setTitle("Buscar Atividade");
 		
 		JLabel lblStatus = new JLabel("Status: ");
 		lblStatus.setBounds(10, 14, 48, 14);
 		
 		comboBox = new JComboBox();
+		comboBox.setEditable(false);
 		
 		comboBox.addItem(Status.APROVADA);
 		comboBox.addItem(Status.RECUSADA);

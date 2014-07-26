@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class ViewDecisaoAlocacao {
+public class ViewDecisaoAlocacao_ {
 
 	/*************************************/
 	//Caso de Uso: Cancelar Alocacao
@@ -37,7 +37,7 @@ public class ViewDecisaoAlocacao {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewDecisaoAlocacao window = new ViewDecisaoAlocacao();
+					ViewDecisaoAlocacao_ window = new ViewDecisaoAlocacao_();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class ViewDecisaoAlocacao {
 	/**
 	 * Create the application.
 	 */
-	public ViewDecisaoAlocacao() {
+	public ViewDecisaoAlocacao_() {
 		initialize();
 		this.frame.setVisible(true);	
 	}
@@ -61,6 +61,7 @@ public class ViewDecisaoAlocacao {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 440, 450);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setTitle("");
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());

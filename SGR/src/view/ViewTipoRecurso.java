@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -73,8 +74,12 @@ public class ViewTipoRecurso {
 		ActionListener salvarTipoRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				tipoRecurso = new TipoRecurso(tipo.getText());
-				controleInstitucional.inserir(tipoRecurso);
+				if(!tipo.getText().isEmpty()){
+					tipoRecurso = new TipoRecurso(tipo.getText());
+					controleInstitucional.inserir(tipoRecurso);
+				}else{
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		};
@@ -106,8 +111,13 @@ public class ViewTipoRecurso {
 		
 		ActionListener alterarTipoRecurso = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tipoRecurso.modificarTipo(tipo.getText());
-				controleInstitucional.alterar(tipoRecurso);
+				if(!tipo.getText().isEmpty()){
+					tipoRecurso.modificarTipo(tipo.getText());
+					controleInstitucional.alterar(tipoRecurso);	
+				}else{
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
+				}
+				
 				
 			}
 		};

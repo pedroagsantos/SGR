@@ -92,6 +92,7 @@ public class ViewCancelarAtividade {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 640, 480);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setTitle("Cancelar Atividade");
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -123,7 +124,7 @@ public class ViewCancelarAtividade {
 				if(atividadesArray.length > 0) {
 					
 					Atividade atividade = (Atividade) list.getSelectedValue();
-					
+					frame.dispose();
 					viewDecisaoCancelarAtividade = new ViewDecisaoCancelarAtividade(atividade);
 				}
 			}
@@ -207,8 +208,10 @@ public class ViewCancelarAtividade {
 				if(atividadesArray.length > 0) {
 					
 					Atividade atividade = (Atividade) list.getSelectedValue();
-					
+										
+					frame.dispose();
 					viewDecisaoCancelarAtividade = new ViewDecisaoCancelarAtividade(atividade);
+					
 				}
 					
 		

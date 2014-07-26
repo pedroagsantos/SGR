@@ -23,6 +23,7 @@ public class ControleInstitucional {
 	}
 
 	public boolean alterar(Professor professor) {
+		JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 		return depto.alterarProfessor(professor);
 	}
 
@@ -52,7 +53,8 @@ public class ControleInstitucional {
 	}
 
 	public boolean alterar(Tecnico tecnico) {
-		 return depto.alterarTecnico(tecnico);	
+		JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
+		return depto.alterarTecnico(tecnico);	
 	}
 
 	public List<TipoRecurso> buscarTipoRecurso(String tipo) {
@@ -63,6 +65,7 @@ public class ControleInstitucional {
 	}
 
 	public boolean alterar(TipoRecurso tipoRecurso) {
+		JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Mensagem", JOptionPane.OK_OPTION);
 		return depto.alteraTipoRecurso(tipoRecurso);
 	}
 

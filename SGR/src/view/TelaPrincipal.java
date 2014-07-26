@@ -63,7 +63,7 @@ public class TelaPrincipal extends JFrame{
 	private JMenuItem mntmBuscarAtividade;
 	private JMenuItem mntmDesalocarRecurso;
 	private JMenuItem mntmFinalizarAtividade;
-	private JButton btnTcnico;
+	/*private JButton btnTcnico;
 	private JButton btnProfessor;
 	private JButton btnTipoDeRecurso;
 	private JButton btnRecurso;
@@ -75,7 +75,7 @@ public class TelaPrincipal extends JFrame{
 	private JButton btnFinalizarAtividade;
 	private JButton btnNovaSolicitao_1;
 	private JButton btnBuscarSolicitao;
-	private JButton btnCancelarAtividades;
+	private JButton btnCancelarAtividades;*/
 	
 
 	private void inicializeTecnico() {
@@ -188,7 +188,7 @@ public class TelaPrincipal extends JFrame{
 		
 		criarTelaTecnico();
 		
-		btnTcnico.addActionListener(abrirCadTecnico);
+		/*btnTcnico.addActionListener(abrirCadTecnico);
 		btnProfessor.addActionListener(abrirCadProfessor);
 		btnTipoDeRecurso.addActionListener(abrirCadTipoRecurso);
 		btnRecurso.addActionListener(abrirViewRecurso);
@@ -200,7 +200,7 @@ public class TelaPrincipal extends JFrame{
 		btnAvaliarPendncias.addActionListener(abrirAvaliarAtividadesPendentes);
 		btnDesalocarRecurso.addActionListener(abrirDesalocarRecurso);
 		btnFinalizarAtividade.addActionListener(abrirFinalizarAtividade);
-		
+		*/
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
@@ -320,9 +320,9 @@ public class TelaPrincipal extends JFrame{
 		
 		criarTelaProfessor();
 		
-		btnNovaSolicitao_1.addActionListener(abrirCadAtividade);
+		/*btnNovaSolicitao_1.addActionListener(abrirCadAtividade);
 		btnBuscarSolicitao.addActionListener(abrirBuscarAtividade);
-		btnCancelarAtividades.addActionListener(abrirCancelarAtividade);
+		btnCancelarAtividades.addActionListener(abrirCancelarAtividade);*/
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -357,12 +357,12 @@ public class TelaPrincipal extends JFrame{
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblCadastro = new JLabel("Cadastro");
+		/*JLabel lblCadastro = new JLabel("Cadastro");
 		lblCadastro.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCadastro.setBounds(10, 11, 173, 14);
-		panel.add(lblCadastro);
+		panel.add(lblCadastro);*/
 		
-		btnTcnico = new JButton("T\u00E9cnico");
+		/*btnTcnico = new JButton("T\u00E9cnico");
 		btnTcnico.setBounds(20, 36, 148, 23);
 		panel.add(btnTcnico);
 		
@@ -376,33 +376,33 @@ public class TelaPrincipal extends JFrame{
 		
 		btnRecurso = new JButton("Recurso");
 		btnRecurso.setBounds(20, 138, 148, 23);
-		panel.add(btnRecurso);
+		panel.add(btnRecurso);*/
 		
 		JPanel panel1 = new JPanel();
 		panel1.setBounds(204, 96, 193, 209);
 		getContentPane().add(panel1);
 		panel1.setLayout(null);
 		
-		JLabel lblSolicitao = new JLabel("Solicita\u00E7\u00E3o");
+		/*JLabel lblSolicitao = new JLabel("Solicita\u00E7\u00E3o");
 		lblSolicitao.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSolicitao.setBounds(10, 11, 173, 14);
-		panel1.add(lblSolicitao);
+		panel1.add(lblSolicitao);*/
 		
-		btnNovaSolicitao = new JButton("Nova solicita\u00E7\u00E3o");
+		/*btnNovaSolicitao = new JButton("Nova solicita\u00E7\u00E3o");
 		btnNovaSolicitao.setBounds(10, 36, 173, 23);
-		panel1.add(btnNovaSolicitao);
+		panel1.add(btnNovaSolicitao);*/
 		
 		JPanel panel2 = new JPanel();
 		panel2.setBounds(398, 96, 193, 209);
 		getContentPane().add(panel2);
 		panel2.setLayout(null);
 		
-		JLabel lblGerenciarAtividades = new JLabel("Gerenciar Atividades");
+		/*JLabel lblGerenciarAtividades = new JLabel("Gerenciar Atividades");
 		lblGerenciarAtividades.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGerenciarAtividades.setBounds(10, 11, 173, 14);
-		panel2.add(lblGerenciarAtividades);
+		panel2.add(lblGerenciarAtividades);*/
 		
-		btnBuscarAtividade = new JButton("Buscar atividade");
+		/*btnBuscarAtividade = new JButton("Buscar atividade");
 		btnBuscarAtividade.setBounds(10, 36, 173, 23);
 		panel2.add(btnBuscarAtividade);
 		
@@ -420,7 +420,7 @@ public class TelaPrincipal extends JFrame{
 		
 		btnFinalizarAtividade = new JButton("Finalizar atividade");
 		btnFinalizarAtividade.setBounds(10, 172, 173, 23);
-		panel2.add(btnFinalizarAtividade);
+		panel2.add(btnFinalizarAtividade);*/
 	}
 	
 	private void criarTelaProfessor() {
@@ -429,44 +429,48 @@ public class TelaPrincipal extends JFrame{
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblSolicitao_1 = new JLabel("Solicita\u00E7\u00E3o");
+		/*JLabel lblSolicitao_1 = new JLabel("Solicita\u00E7\u00E3o");
 		lblSolicitao_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSolicitao_1.setBounds(10, 11, 197, 30);
-		panel.add(lblSolicitao_1);
+		panel.add(lblSolicitao_1);*/
 		
-		btnNovaSolicitao_1 = new JButton("Nova solicita\u00E7\u00E3o");
+		/*btnNovaSolicitao_1 = new JButton("Nova solicita\u00E7\u00E3o");
 		btnNovaSolicitao_1.setBounds(10, 52, 197, 30);
 		panel.add(btnNovaSolicitao_1);
 		
 		btnBuscarSolicitao = new JButton("Buscar solicita\u00E7\u00E3o");
 		btnBuscarSolicitao.setBounds(10, 93, 197, 30);
-		panel.add(btnBuscarSolicitao);
+		panel.add(btnBuscarSolicitao);*/
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(335, 96, 217, 242);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblGerenciarAtividades_1 = new JLabel("Gerenciar atividades");
+		/*JLabel lblGerenciarAtividades_1 = new JLabel("Gerenciar atividades");
 		lblGerenciarAtividades_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGerenciarAtividades_1.setBounds(10, 11, 197, 30);
 		panel_1.add(lblGerenciarAtividades_1);
-		
-		btnCancelarAtividades = new JButton("Cancelar atividades");
+		*/
+		/*btnCancelarAtividades = new JButton("Cancelar atividades");
 		btnCancelarAtividades.setBounds(10, 52, 197, 30);
-		panel_1.add(btnCancelarAtividades);
+		panel_1.add(btnCancelarAtividades);*/
 	}
 	
 	public TelaPrincipal() {
+		
+		
 		
 		setSize(620,400);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		setResizable(false);
+		setTitle("Sistema de Gereciamento de Recursos - SGR");
 		
 		JLabel lblSgr = new JLabel("SGR");
+		lblSgr.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSgr.setFont(new Font("Arial", Font.PLAIN, 70));
-		lblSgr.setBounds(400, 11, 152, 74);
+		lblSgr.setBounds(225, 120, 152, 74);
 		getContentPane().add(lblSgr);
 		
 		Usuario usuario = Usuario.recuperaUsuarioLogado();

@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -113,15 +114,17 @@ public class ViewProfessor {
 		
 		departamento = new JComboBox<Departamento>();
 		departamento.setModel(new DefaultComboBoxModel<Departamento>(vetorDepartamento));
-		departamento.setEditable(true);
+		departamento.setEditable(false);
 		panel.add(departamento, "cell 1 4,growx");
 		
 		/*****************************************************************/
 		ActionListener salvarProfessor = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				controleInstitucional.inserirProfessor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento) departamento.getSelectedItem());
-				
+				if(!nome.getText().isEmpty() && !siape.getText().isEmpty() && !email.getText().isEmpty())
+					controleInstitucional.inserirProfessor(nome.getText(), siape.getText(), email.getText(), telefone.getText(), (Departamento) departamento.getSelectedItem());
+				else
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
 			}
 		};
 		
@@ -159,13 +162,16 @@ public class ViewProfessor {
 		ActionListener alterarProfessor = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//controleInstitucional = new ControleInstitucional();
-				professor.modificarNome(nome.getText());
-				//professor.modificarSiape(siape.getText());
-				professor.modificarEmail(email.getText());
-				professor.modificarTelefone(telefone.getText());
-				professor.modificarDepartamento((Departamento)departamento.getSelectedItem());
-				controleInstitucional.alterar(professor);
-				
+				if(!nome.getText().isEmpty() && !siape.getText().isEmpty() && !email.getText().isEmpty()){
+					professor.modificarNome(nome.getText());
+					//professor.modificarSiape(siape.getText());
+					professor.modificarEmail(email.getText());
+					professor.modificarTelefone(telefone.getText());
+					professor.modificarDepartamento((Departamento)departamento.getSelectedItem());
+					controleInstitucional.alterar(professor);	
+				}else{
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos", "Mensagem", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		};
 		

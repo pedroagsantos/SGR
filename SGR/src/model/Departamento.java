@@ -71,14 +71,16 @@ public class Departamento {
 			else {
 				for (Usuario usuario : this.usuarios) {
 					if (usuario instanceof Tecnico) {
-						if (usuario.recuperarSiape().indexOf(usuario.recuperarSiape()) > -1  && 
-								usuario.recuperarStatus() != Status.DESABILITADO.valor())
+						if (usuario.recuperarSiape().indexOf(tecnico.recuperarSiape()) > -1  /*&& 
+								usuario.recuperarStatus() != Status.DESABILITADO.valor()*/)
 							listaRetorno.add(usuario);
 					}
 				}
 			}
 			
         return listaRetorno;
+        
+        
     }
 
     public List<Usuario> listarProfessor(Professor professor){

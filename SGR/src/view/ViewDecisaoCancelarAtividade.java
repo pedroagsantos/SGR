@@ -3,15 +3,18 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import control.ControleAtividade;
 import model.Atividade;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import net.miginfocom.swing.MigLayout;
 
 
@@ -47,6 +50,7 @@ public class ViewDecisaoCancelarAtividade {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 440, 412);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setTitle("Cancelar Atividade");
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -73,7 +77,9 @@ public class ViewDecisaoCancelarAtividade {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				controleAtividade.cancelarAtividade(atividade);
+				controleAtividade.cancelarAtividade(atividade);				
+				frame.dispose();
+				ViewCancelarAtividade vca = new ViewCancelarAtividade();
 				
 			}
 		});

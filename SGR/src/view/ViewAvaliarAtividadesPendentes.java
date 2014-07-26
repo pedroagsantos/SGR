@@ -93,6 +93,8 @@ public class ViewAvaliarAtividadesPendentes {
 		frame.setBounds(100, 100, 640, 480);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		frame.setTitle("Avaliar atividade pendente");
+		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -179,6 +181,7 @@ public class ViewAvaliarAtividadesPendentes {
 		frame.setBounds(100, 100, 640, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -213,7 +216,7 @@ public class ViewAvaliarAtividadesPendentes {
 				if(atividadesArray.length > 0) {
 					
 					Atividade atividade = (Atividade) list.getSelectedValue();
-					
+					frame.dispose();
 					viewDecisaoCancelarAtividade = new ViewDecisaoCancelarAtividade(atividade);
 				}
 					

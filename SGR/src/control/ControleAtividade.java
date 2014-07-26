@@ -34,15 +34,20 @@ public class ControleAtividade {
 
 		if(tec != null) {
 			nova = new Atividade(codigo, prof, tec, recursos, intervalo, Status.PENDENTE, date);
+			
 			if(!avaliaAtividade(nova))
 				return;
-			else
-				aprovarAtividade(nova);
+			else{
+				aprovarAtividade(nova);	
+				depto.inserirAtividade(nova);
+			}
 		}
-		else
+		else{
 			nova = new Atividade(codigo, prof, tec, recursos, intervalo, Status.PENDENTE, date);
-		depto.inserirAtividade(nova);
-		JOptionPane.showMessageDialog(null, "Inserido com Sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+			depto.inserirAtividade(nova);
+			JOptionPane.showMessageDialog(null, "Solicitação feita com sucesso!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 	}
 
 	private boolean avaliaAtividade(Atividade nova) {
@@ -90,18 +95,20 @@ public class ControleAtividade {
 	
 	private void verificaEmAndamento() {
 		
-		DateTime agora = new DateTime(DateTime.now());
-		
 		for(Atividade ativ: depto.recuperarAtividades())
-				if(mesmaDataCorrente(agora, ativ))
+			if(mesmaDataCorrente(ativ) && 
+					ativ.recuperarStatus() == Status.APROVADA)
 					ativ.modificarStatus(Status.EM_ANDAMENTO);
 	}
 	
-	private Boolean mesmaDataCorrente(DateTime agora, Atividade ativ) {
+	private Boolean mesmaDataCorrente(Atividade ativ) {
 		
 		DateTime dataAtividade = ativ.recuperaData();
 		
+		DateTime agora = new DateTime(DateTime.now());
+		
 		int horaDoDia = agora.getHourOfDay();
+		int horaDoIntervalo = ativ.recuperaIntervalo().horaIntervalo();
 		
 		if (agora.getYear() !=  dataAtividade.getYear())
 			return false;
@@ -111,12 +118,31 @@ public class ControleAtividade {
 			return false;
 		if (agora.getDayOfWeek() != dataAtividade.getDayOfWeek())
 			return false;
-		if (ativ.recuperaIntervalo().horaIntervalo() >= horaDoDia && 
-			horaDoDia <=  ativ.recuperaIntervalo().horaIntervalo()+2)
-			return false;
+		if (horaDoDia < horaDoIntervalo || horaDoDia > horaDoIntervalo + 2)
+			return false; 
 		
 		return true;
 			
+	}
+	
+	public Intervalo[] recuperaViewIntervalos() {
+		
+		DateTime agora = new DateTime(DateTime.now());
+		
+		int horaDoDia = agora.getHourOfDay();
+		
+		ArrayList<Intervalo> intervaloList =  new ArrayList<>();
+		
+		for (Intervalo intervalo: Intervalo.values())
+			if (horaDoDia < intervalo.horaIntervalo())
+				intervaloList.add(intervalo);
+		
+		Intervalo[] vetorIntervalo = new Intervalo[intervaloList.size()];
+		
+		for(int i = 0; i < intervaloList.size(); i++){
+			vetorIntervalo[i] =  intervaloList.get(i);
+		}
+		return vetorIntervalo;
 	}
 
 	/*private void verificaEmAndamento() {

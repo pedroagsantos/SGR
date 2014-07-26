@@ -49,6 +49,7 @@ public class ViewMinhasAtividades {
 		btnStatus.setName("btnStatus");
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setEditable(false);
 		comboBox.setName("combo");
 		GroupLayout groupLayout = new GroupLayout(frmMinhasAtividades.getContentPane());
 		groupLayout.setHorizontalGroup(
